@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>공통영어1 어휘 연습문제 500제</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#f5f4f0;color:#1a1a18;min-height:100vh}
+a{color:inherit}
+
+/* ── 커버 ── */
+#cover{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;text-align:center}
+#cover h1{font-size:24px;font-weight:700;margin-bottom:6px}
+#cover .sub{font-size:13px;color:#999;margin-bottom:22px;line-height:1.7}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:460px;margin-bottom:24px}
+.ib{background:#fff;border:1px solid #e4e2dc;border-radius:10px;padding:14px 6px;text-align:center}
+.ib .n{font-size:22px;font-weight:700;color:#3b8ad9}
+.ib .l{font-size:11px;color:#aaa;margin-top:2px}
+.inp{width:100%;max-width:460px;padding:11px 14px;font-size:14px;border:1px solid #d0cec8;border-radius:10px;outline:none;font-family:inherit;margin-bottom:10px;background:#fff}
+.inp:focus{border-color:#3b8ad9;box-shadow:0 0 0 3px #d0e8f8}
+.go-btn{width:100%;max-width:460px;padding:13px;font-size:15px;font-weight:700;background:#3b8ad9;color:#fff;border:none;border-radius:12px;cursor:pointer;font-family:inherit;transition:opacity .15s}
+.go-btn:hover{opacity:.88}
+
+/* ── 퀴즈 ── */
+#quiz{display:none;max-width:720px;margin:0 auto;padding:14px 12px}
+.qhdr{background:#fff;border:1px solid #e4e2dc;border-radius:12px;padding:12px 16px;margin-bottom:10px;position:sticky;top:8px;z-index:10}
+.qhdr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+.qhdr-top h2{font-size:13px;font-weight:600;color:#555}
+.stabs{display:flex;gap:5px;flex-wrap:wrap}
+.stab{padding:4px 11px;font-size:11px;font-weight:500;border:1px solid #e4e2dc;border-radius:8px;background:#fff;cursor:pointer;color:#888;transition:all .15s;font-family:inherit}
+.stab.on{background:#e8f1fb;color:#1a6bbf;border-color:transparent}
+.prow{display:flex;align-items:center;gap:8px}
+.pbg{flex:1;height:4px;background:#f0ede8;border-radius:999px;overflow:hidden}
+.pfill{height:100%;background:#3b8ad9;border-radius:999px;transition:width .3s}
+.ptxt{font-size:11px;color:#bbb;min-width:52px;text-align:right}
+.srow{display:flex;gap:7px;margin-bottom:12px}
+.sc{flex:1;background:#fff;border:1px solid #e4e2dc;border-radius:9px;padding:8px 10px}
+.sl{font-size:9px;color:#ccc;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.sv{font-size:17px;font-weight:700;color:#1a1a18}
+.sv.ok{color:#1a8c5e}.sv.bad{color:#c4420f}
+
+/* ── 문제 카드 ── */
+.qcard{background:#fff;border:1px solid #e4e2dc;border-radius:12px;padding:18px 16px;margin-bottom:10px}
+.qnum-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.qnum{font-size:11px;color:#bbb;letter-spacing:.03em}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px}
+.b1{background:#e8f1fb;color:#1a6bbf}
+.b2{background:#e8f5ee;color:#1a7a4a}
+.b3{background:#fef3e4;color:#a06010}
+.b4{background:#f5e8fb;color:#7a1a8c}
+.qeng{font-size:16px;font-weight:500;color:#1a1a18;margin-bottom:4px;line-height:1.6;word-break:keep-all}
+.qkor{font-size:12px;color:#999;margin-bottom:12px;line-height:1.6;word-break:keep-all}
+.qhint{font-size:12px;color:#bbb;margin-bottom:6px}
+.answer-area{margin-top:4px}
+
+/* 선택형 */
+.opts{display:flex;flex-direction:column;gap:6px}
+.obtn{width:100%;text-align:left;padding:10px 13px;background:#fafaf8;border:1px solid #e8e6e0;border-radius:9px;font-size:13px;color:#1a1a18;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:inherit;transition:all .15s}
+.obtn:hover:not(:disabled){background:#f0ede8;border-color:#c8c5bf}
+.obtn.ok{background:#eaf5ed;border-color:#4aaa70;color:#1a6640}
+.obtn.bad{background:#fdf0eb;border-color:#d06030;color:#8b2e10}
+.olbl{font-size:10px;font-weight:700;color:#ccc;min-width:13px;flex-shrink:0}
+.obtn.ok .olbl{color:#1a6640}.obtn.bad .olbl{color:#8b2e10}
+
+/* 타이핑형 */
+.trow{display:flex;gap:7px}
+.ti{flex:1;padding:9px 12px;font-size:14px;border:1px solid #d0cec8;border-radius:9px;background:#fff;color:#1a1a18;outline:none;font-family:inherit}
+.ti:focus{border-color:#3b8ad9;box-shadow:0 0 0 2px #d0e8f8}
+.ti.ok{border-color:#4aaa70;background:#eaf5ed;color:#1a6640}
+.ti.bad{border-color:#d06030;background:#fdf0eb;color:#8b2e10}
+.ti:disabled{opacity:1}
+.ck-btn{padding:9px 15px;font-size:13px;font-weight:600;background:#3b8ad9;color:#fff;border:none;border-radius:9px;cursor:pointer;font-family:inherit;transition:opacity .15s;white-space:nowrap}
+.ck-btn:hover{opacity:.85}
+.fb{font-size:12px;margin-top:5px;min-height:16px;color:#bbb}
+.fb.ok{color:#1a8c5e;font-weight:500}.fb.bad{color:#c4420f;font-weight:500}
+
+/* 매칭형 */
+.match-item{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.match-word{font-size:13px;font-weight:500;min-width:120px;color:#1a1a18}
+.match-sel{flex:1;padding:8px 10px;font-size:13px;border:1px solid #d0cec8;border-radius:8px;background:#fff;color:#1a1a18;outline:none;font-family:inherit}
+.match-sel.ok{border-color:#4aaa70;background:#eaf5ed;color:#1a6640}
+.match-sel.bad{border-color:#d06030;background:#fdf0eb;color:#8b2e10}
+.match-submit{padding:8px 16px;font-size:12px;font-weight:600;background:#3b8ad9;color:#fff;border:none;border-radius:9px;cursor:pointer;font-family:inherit;margin-top:6px;display:block;transition:opacity .15s}
+.match-submit:hover{opacity:.85}
+
+/* 배열형 */
+.arr-box{background:#f5f3ef;border:1px dashed #d0cec8;border-radius:9px;padding:12px 14px;margin-bottom:8px}
+.arr-fill-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.arr-fill-label{font-size:12px;color:#888}
+.arr-select{padding:6px 10px;font-size:13px;border:1px solid #d0cec8;border-radius:7px;background:#fff;color:#1a1a18;outline:none;font-family:inherit}
+.arr-words{font-size:12px;color:#888;margin-bottom:8px}
+.arr-words span{background:#fff;border:1px solid #d0cec8;border-radius:5px;padding:2px 7px;margin:2px;display:inline-block;font-size:12px;color:#555}
+.arr-input{width:100%;padding:9px 12px;font-size:13px;border:1px solid #d0cec8;border-radius:9px;background:#fff;color:#1a1a18;outline:none;font-family:inherit;margin-bottom:4px}
+.arr-input:focus{border-color:#7a1a8c;box-shadow:0 0 0 2px #e8d8f5}
+.arr-input.ok{border-color:#4aaa70;background:#eaf5ed;color:#1a6640}
+.arr-input.bad{border-color:#d06030;background:#fdf0eb;color:#8b2e10}
+.arr-hint{font-size:11px;color:#bbb;margin-bottom:6px}
+
+/* 다음 버튼 */
+.nxt{width:100%;padding:10px;font-size:13px;font-weight:600;background:#fff;border:1px solid #d0cec8;border-radius:10px;cursor:pointer;color:#333;margin-top:8px;font-family:inherit;display:none;transition:background .15s}
+.nxt:hover{background:#f5f3ef}
+
+/* ── 완료 화면 ── */
+#done{display:none;max-width:600px;margin:0 auto;padding:32px 16px;text-align:center}
+.done-card{background:#fff;border:1px solid #e4e2dc;border-radius:16px;padding:32px 24px}
+.done-em{font-size:48px;margin-bottom:12px}
+.done-title{font-size:20px;font-weight:700;margin-bottom:8px}
+.done-sub{font-size:14px;color:#888;margin-bottom:24px;line-height:1.7}
+.done-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.dsc{background:#f5f4f0;border-radius:10px;padding:12px 6px;text-align:center}
+.dsl{font-size:10px;color:#aaa;margin-bottom:3px}
+.dsv{font-size:18px;font-weight:700;color:#1a1a18}
+.dsv.ok{color:#1a8c5e}.dsv.bad{color:#c4420f}
+.done-btns{display:flex;flex-direction:column;gap:8px;max-width:360px;margin:0 auto 20px}
+.dbtn{padding:12px;font-size:14px;font-weight:600;border:none;border-radius:10px;cursor:pointer;font-family:inherit;transition:opacity .15s}
+.dbtn:hover{opacity:.88}
+.dbtn.b{background:#3b8ad9;color:#fff}
+.dbtn.g{background:#1a8c5e;color:#fff}
+.dbtn.o{background:#e07a20;color:#fff}
+.email-area{background:#f5f4f0;border-radius:10px;padding:16px;margin-top:12px;text-align:left}
+.email-area h3{font-size:13px;font-weight:600;margin-bottom:10px;color:#555}
+.email-row{display:flex;gap:7px;margin-bottom:8px}
+.email-inp{flex:1;padding:9px 12px;font-size:13px;border:1px solid #d0cec8;border-radius:8px;background:#fff;outline:none;font-family:inherit}
+.email-inp:focus{border-color:#3b8ad9;box-shadow:0 0 0 2px #d0e8f8}
+.send-btn{padding:9px 16px;font-size:13px;font-weight:600;background:#e07a20;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;transition:opacity .15s;white-space:nowrap}
+.send-btn:hover{opacity:.85}
+.send-note{font-size:11px;color:#aaa;line-height:1.6}
+.wl{text-align:left;margin-top:12px;max-height:240px;overflow-y:auto}
+.wlt{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.wi{font-size:12px;padding:5px 0;border-bottom:1px solid #f0ede8;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.wi:last-child{border-bottom:none}
+.wi .we{color:#1a1a18;font-weight:500}.wi .wa{color:#aaa}
+</style>
+</head>
+<body>
+
+<!-- ══════════ 커버 ══════════ -->
+<div id="cover">
+  <h1>공통영어1 어휘 연습문제</h1>
+  <p class="sub">2026학년도 인천예술고등학교 1학년 1학기<br>수행평가 범위 어휘 총 500문항</p>
+  <div class="info-grid">
+    <div class="ib"><div class="n">200</div><div class="l">어휘 선택</div></div>
+    <div class="ib"><div class="n">100</div><div class="l">어휘 변형</div></div>
+    <div class="ib"><div class="n">200</div><div class="l">매칭·배열</div></div>
+  </div>
+  <input class="inp" id="nameInput" placeholder="이름을 입력하세요 (예: 양지원)" maxlength="20">
+  <input class="inp" id="classInput" placeholder="학년 / 반 / 번호 (예: 1학년 2반 9번)" maxlength="30">
+  <button class="go-btn" onclick="startQuiz()">시작하기 →</button>
+</div>
+
+<!-- ══════════ 퀴즈 ══════════ -->
+<div id="quiz">
+  <div class="qhdr">
+    <div class="qhdr-top">
+      <h2 id="hdr-name">이름</h2>
+      <div class="stabs" id="stabs"></div>
+    </div>
+    <div class="prow">
+      <div class="pbg"><div class="pfill" id="pb" style="width:0%"></div></div>
+      <span class="ptxt" id="pt">0 / 0</span>
+    </div>
+  </div>
+  <div class="srow">
+    <div class="sc"><div class="sl">맞힌 개수</div><div class="sv ok" id="sc">0</div></div>
+    <div class="sc"><div class="sl">틀린 개수</div><div class="sv bad" id="sw">0</div></div>
+    <div class="sc"><div class="sl">남은 개수</div><div class="sv" id="sl">0</div></div>
+    <div class="sc"><div class="sl">정답률</div><div class="sv" id="sr">—</div></div>
+  </div>
+  <div id="qa"></div>
+</div>
+
+<!-- ══════════ 완료 ══════════ -->
+<div id="done">
+  <div class="done-card">
+    <div class="done-em" id="de">🎉</div>
+    <div class="done-title" id="dt"></div>
+    <div class="done-sub" id="ds"></div>
+    <div class="done-stat-grid">
+      <div class="dsc"><div class="dsl">총 문제</div><div class="dsv" id="d-tot"></div></div>
+      <div class="dsc"><div class="dsl">정답</div><div class="dsv ok" id="d-cor"></div></div>
+      <div class="dsc"><div class="dsl">오답</div><div class="dsv bad" id="d-wrng"></div></div>
+      <div class="dsc"><div class="dsl">정답률</div><div class="dsv" id="d-pct"></div></div>
+    </div>
+    <div class="done-btns">
+      <button class="dbtn b" onclick="restartAll()">처음부터 다시 풀기</button>
+      <button class="dbtn g" onclick="retryWrong()">틀린 문제만 다시 풀기</button>
+      <button class="dbtn o" onclick="downloadResult()">결과 파일 다운로드 (.txt)</button>
+    </div>
+    <div class="email-area">
+      <h3>📧 결과 파일 이메일 전송</h3>
+      <div class="email-row">
+        <input class="email-inp" id="emailTo" value="window7458@gmail.com" placeholder="수신 이메일">
+        <button class="send-btn" onclick="sendEmail()">전송하기</button>
+      </div>
+      <div class="send-note" id="send-status">
+        ※ 기기의 기본 메일 앱이 열립니다. 결과 내용이 자동으로 붙여넣기 됩니다.<br>
+        메일 앱이 없으면 "결과 파일 다운로드" 후 직접 첨부하세요.
+      </div>
+    </div>
+    <div class="wl" id="wl"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// 문제 데이터
+// ══════════════════════════════════════════════════════════════
+
+// type: 'sel'=선택, 'type'=타이핑, 'match'=매칭(뜻쓰기), 'arr'=문장배열
+
+// ── PART1: 1~100 어휘 선택 ──────────────────────────────────
+const P1 = [
+[1,"Just as you don't know everything ( __ ) about a trip, neither can you know how your new life might unfold.","여행에 대해 모든 것을 사전에 알지 못하는 것처럼, 새로운 삶이 어떻게 펼쳐질지도 알 수 없다.","① gradually  ② in advance  ③ instantly  ④ rather than","② in advance"],
+[2,"You just have to ( __ ) it like doing a jigsaw and accept that the full picture will emerge gradually.","그것을 조각그림 맞추기처럼 다루고 전체 그림이 점진적으로 드러날 것임을 받아들여야 한다.","① treat  ② achieve  ③ belong  ④ emerge","① treat"],
+[3,"While sometimes it will be straightforward to fit pieces together, at other times it will take more effort and ( __ ).","때로는 조각들을 짜맞추기 쉽겠지만, 다른 때에는 더 많은 노력과 인내심이 필요할 것이다.","① courage  ② section  ③ invention  ④ patience","④ patience"],
+[4,"Sometimes you will find interesting pieces that ( __ ) up a whole new section.","때로는 완전히 새로운 부분을 열어주는 흥미로운 조각들을 발견할 것이다.","① keep  ② open  ③ take  ④ make","② open"],
+[5,"You just need to keep at it until the picture ( __ ) and you can see clearly what you have achieved.","그림이 드러날 때까지 계속해야 하며 자신이 이룬 것을 명확하게 볼 수 있다.","① belongs  ② achieves  ③ emerges  ④ treats","③ emerges"],
+[6,"Radio provided the ( __ ) to solidify the era of patronage.","라디오는 후원의 시대를 확고히 하는 원동력을 제공했다.","① means  ② presence  ③ driving force  ④ opportunity","③ driving force"],
+[7,"The invention that soon followed remains the most ( __ ) communication medium that influenced sports.","그 뒤를 이은 발명품은 스포츠에 영향을 준 가장 중요한 통신 매체로 남아있다.","① profitable  ② significant  ③ formidable  ④ unique","② significant"],
+[8,"The television provided a ( __ ) for sports organizations to expand their market presence.","텔레비전은 스포츠 단체들이 시장 진출을 확장할 수단을 제공했다.","① notion  ② union  ③ presence  ④ means","④ means"],
+[9,"The notion of a 'picture being worth a thousand words' became a reality with the ( __ ) and presentation of sports.","'그림 하나가 천 마디 말의 가치가 있다'는 개념이 스포츠의 개입과 제공으로 현실이 되었다.","① intervention  ② invention  ③ influence  ④ impression","① intervention"],
+[10,"Who knew what sportscaster Bill Stern questioned and introduced in 1939 would ( __ ) the growth of sports marketing?","1939년에 Bill Stern이 질문하고 소개한 것이 스포츠 마케팅의 성장을 향상시킬 줄 누가 알았겠는가?","① solidify  ② enhance  ③ expand  ④ engage","② enhance"],
+[11,"The display platform, the television, provided an incredibly ( __ ) union between sports and the American public.","텔레비전은 스포츠와 미국 대중 사이에 믿을 수 없을 만큼 강력하고 수익성 있는 연대를 제공했다.","① average  ② profitable  ③ formidable  ④ unique","③ formidable"],
+[12,"I looked over the counter and saw the clerk ( __ ) on the floor.","나는 카운터 너머를 보았고 직원이 바닥에 누워있는 것을 보았다.","① lying  ② performing  ③ rushing  ④ breathing","① lying"],
+[13,"I ( __ ) called 911 and explained the situation.","나는 즉시 911에 전화하여 상황을 설명했다.","① gradually  ② suddenly  ③ fortunately  ④ immediately","④ immediately"],
+[14,"The operator asked me to ( __ ) CPR on the clerk until the paramedics arrived.","교환원은 구급대원이 도착할 때까지 직원에게 CPR을 수행해달라고 요청했다.","① explain  ② perform  ③ rush  ④ regain","② perform"],
+[15,"I was scared, but I remembered learning CPR at school. Fortunately, he was still ( __ ).","나는 겁먹었지만 학교에서 CPR을 배운 것을 기억했다. 다행히도 그는 여전히 호흡하고 있었다.","① rushing  ② learning  ③ breathing  ④ performing","③ breathing"],
+[16,"A few minutes later, the paramedics ( __ ) in and took over the situation.","몇 분 후, 구급대원들이 돌진해 들어와 상황을 넘겨받았다.","① rushed  ② regained  ③ carried  ④ checked","① rushed"],
+[17,"Luckily, the clerk ( __ ) consciousness after the paramedics arrived.","다행히도, 구급대원들이 도착한 후 직원이 의식을 되찾았다.","① rushed  ② performed  ③ took over  ④ regained","④ regained"],
+[18,"I dreamed of being an Olympic ( __ ) and field athlete.","나는 올림픽 육상 선수가 되는 것을 꿈꿨다.","① award  ② track  ③ race  ④ compete","② track"],
+[19,"I was about to ( __ ) in the race when I suddenly felt a pain in my knee.","경기에서 선두에 서려던 찰나 갑자기 무릎에 통증을 느꼈다.","① take over  ② carry  ③ take the lead  ④ compete","③ take the lead"],
+[20,"I fell to the ground and had to be ( __ ) off the track.","나는 바닥에 쓰러졌고 트랙에서 옮겨져야 했다.","① carried  ② rushed  ③ prevented  ④ awarded","① carried"],
+[21,"The doctors said my knee injury would ( __ ) me from running again.","의사들은 내 무릎 부상이 내가 다시 달리는 것을 막을 것이라고 했다.","① relate  ② prevent  ③ result  ④ flashback","② prevent"],
+[22,"Every night, I had ( __ ) of my injury and it was just too painful to watch sports.","매일 밤 나는 부상에 대한 회상을 했고 스포츠를 보는 것이 너무 고통스러웠다.","① results  ② fears  ③ injuries  ④ flashbacks","④ flashbacks"],
+[23,"So I ( __ ) everything related to sports from my life.","그래서 나는 스포츠와 관련된 모든 것을 내 삶에서 차단했다.","① came across  ② run away  ③ shut out  ④ get used to","③ shut out"],
+[24,"Two years passed and I was still trying to get ( __ ) to my ordinary high school life without sports.","2년이 지났고 나는 여전히 스포츠 없는 평범한 고등학교 생활에 적응하려 노력하고 있었다.","① used  ② related  ③ come across  ④ shut out","① used"],
+[25,"Then one day, I came across an interesting university ( __ ) called sports medicine.","그러던 어느 날, 나는 스포츠 의학이라는 흥미로운 대학 전공을 우연히 발견했다.","① treatment  ② prevention  ③ fear  ④ major","④ major"],
+[26,"It ( __ ) with the treatment and prevention of sports injuries.","그것은 스포츠 부상의 치료와 예방을 다룬다.","① results  ② deals  ③ relates  ④ helps","② deals"],
+[27,"This was my chance to stop running away from my problems and ( __ ).","이것은 내가 문제와 두려움에서 도망치는 것을 멈출 기회였다.","① injuries  ② results  ③ fears  ④ flashbacks","③ fears"],
+[28,"So I made up my mind and ( __ ) to the major.","그래서 나는 결심하고 그 전공에 지원했다.","① applied  ② decided  ③ signed  ④ came","① applied"],
+[29,"Today I am studying to be a star on the ( __ ) instead of on the playing field.","오늘날 나는 경기장이 아닌 측선에서 스타가 되기 위해 공부하고 있다.","① track  ② sideline  ③ stage  ④ field","② sideline"],
+[30,"Ever since I was young, I have ( __ ) great public speakers.","어릴 때부터 나는 훌륭한 공개 연사들을 존경해왔다.","① inspired  ② moved  ③ engaged  ④ admired","④ admired"],
+[31,"I hoped to inspire and ( __ ) audiences like them someday.","나는 언젠가 그들처럼 청중에게 영감을 주고 감동을 주고 싶었다.","① engage  ② move  ③ admire  ④ deliver","② move"],
+[32,"I didn't want to make a fool of myself, so this fear kept me ( __ ) the stage.","나는 웃음거리가 되고 싶지 않아서 이 두려움이 나를 무대 뒤에 머물게 했다.","① in front of  ② instead of  ③ behind  ④ rather than","③ behind"],
+[33,"That's why I never entered the ( __ ) speech contest at my school.","그래서 나는 학교의 연례 연설 대회에 참가한 적이 없었다.","① annual  ② entire  ③ valuable  ④ public","① annual"],
+[34,"I really wanted to, but I just didn't have enough ( __ ).","나는 정말 원했지만 충분한 용기가 없었다.","① patience  ② effort  ③ decision  ④ courage","④ courage"],
+[35,"Last year was my final chance before ( __ ) from high school.","작년은 고등학교를 졸업하기 전 나의 마지막 기회였다.","① applying  ② graduating  ③ delivering  ④ signing","② graduating"],
+[36,"I heard a voice growing ( __ ) in my head, saying 'Go for it!'","나는 내 머릿속에서 '도전해봐!'라고 말하는 목소리가 점점 커지는 것을 들었다.","① louder  ② stronger  ③ clearer  ④ higher","① louder"],
+[37,"I decided to sign up for the contest and ( __ ) my speech to the entire school.","나는 대회에 신청하기로 결심했고 전교생에게 연설을 했다.","① inspired  ② moved  ③ delivered  ④ engaged","③ delivered"],
+[38,"But my act of courage taught me a ( __ ) lesson: I can do anything I put my mind to.","하지만 나의 용기 있는 행동은 마음먹으면 무엇이든 할 수 있다는 귀중한 교훈을 가르쳐 주었다.","① public  ② annual  ③ entire  ④ valuable","④ valuable"],
+[39,"You never get a second chance to make a first ( __ ).","첫인상을 만들 두 번째 기회는 없다.","① attention  ② impression  ③ expression  ④ exception","② impression"],
+[40,"A powerful first line of a book can catch readers' ( __ ) and make them want to read on.","책의 강력한 첫 문장은 독자들의 관심을 끌고 계속 읽고 싶게 만들 수 있다.","① attention  ② impression  ③ author  ④ exception","① attention"],
+[41,"Authors often spend weeks, months, or even years ( __ ) the perfect opening line.","작가들은 종종 완벽한 첫 문장을 생각해내는 데 몇 주, 몇 달, 심지어 몇 년을 보낸다.","① coming from  ② catching up on  ③ coming up with  ④ making up for","③ coming up with"],
+[42,"Every child becomes an adult ( __ ) they want to or not.","모든 아이는 원하든 원하지 않든 어른이 된다.","① as long as  ② whether  ③ despite  ④ insofar as","② whether"],
+[43,"But the opening line of Peter Pan ( __ ) that there is one child who is the exception to the rule.","하지만 피터팬의 첫 문장은 규칙의 예외인 아이가 한 명 있다고 말한다.","① states  ② refuses  ③ bears  ④ remains","① states"],
+[44,"Peter Pan is a boy who ( __ ) to grow older.","피터팬은 더 이상 자라는 것을 거부하는 소년이다.","① remains  ② states  ③ bears  ④ refuses","④ refuses"],
+[45,"It is a magical place where dreams are ( __ ) and excitement never ends.","그것은 꿈이 태어나고 신남이 결코 끝나지 않는 마법의 장소이다.","① located  ② remained  ③ born  ④ refused","③ born"],
+[46,"Only children can visit Neverland and they do not grow up ( __ ) they remain there.","오직 아이들만 네버랜드를 방문할 수 있고 그들은 그곳에 머무는 한 성장하지 않는다.","① whether  ② as long as  ③ despite  ④ in the end","② as long as"],
+[47,"But in the end, the three children decide to return home and grow ( __ ).","그러나 결국, 세 아이들은 집으로 돌아가 성장하기로 결심한다.","① up  ② away  ③ louder  ④ over","① up"],
+[48,"What is the reason for this ( __ ) decision?","이 예상 밖의 결정의 이유는 무엇인가?","① imaginary  ② mysterious  ③ unusual  ④ unexpected","④ unexpected"],
+[49,"What ( __ ) to mind when you hear the word 'camp'?","'캠프'라는 단어를 들으면 무엇이 떠오르는가?","① surrounds  ② comes  ③ states  ④ hints","② comes"],
+[50,"Perhaps it is a beautiful place where a green forest ( __ ) a blue lake.","아마도 그것은 초록 숲이 파란 호수를 둘러싸고 있는 아름다운 장소일 것이다.","① locates  ② improves  ③ surrounds  ④ suspects","③ surrounds"],
+[51,"It states that there is no lake there ( __ ) its name.","그것은 이름에도 불구하고 거기에는 호수가 없다고 말한다.","① despite  ② whether  ③ as long as  ④ though","① despite"],
+[52,"Through this irony, the author is ( __ ) that Camp Green Lake is not a normal camp.","이 역설을 통해 작가는 그린 레이크 캠프가 정상적인 캠프가 아님을 암시하고 있다.","① locating  ② improving  ③ surrounding  ④ hinting","④ hinting"],
+[53,"Located in the desert, it is like a ( __ ) for bad boys.","사막에 위치한 그것은 나쁜 소년들을 위한 감옥 같다.","① camp  ② prison  ③ location  ④ character","② prison"],
+[54,"The main ( __ ) of the book, a teenage boy named Stanley, is different from the other boys.","책의 주인공인 Stanley라는 십대 소년은 다른 소년들과 다르다.","① notion  ② irony  ③ character  ④ location","③ character"],
+[55,"The boys at Camp Green Lake are expected to ( __ ) their character by digging holes every day.","그린 레이크 캠프의 소년들은 매일 구덩이를 파서 품성을 개선할 것으로 기대된다.","① improve  ② dig  ③ suspect  ④ locate","① improve"],
+[56,"Stanley ( __ ) that there is another reason for the digging.","Stanley는 땅을 파는 것에 다른 이유가 있다고 의심한다.","① improves  ② locates  ③ digs  ④ suspects","④ suspects"],
+[57,"Typically, clocks ( __ ) from one to twelve times.","일반적으로 시계는 한 번에서 열두 번 친다.","① improve  ② strike  ③ state  ④ remain","② strike"],
+[58,"In a normal world, a clock striking thirteen is out of the ( __ ).","정상적인 세계에서 13번 치는 시계는 색다른 것이다.","① irony  ② exception  ③ ordinary  ④ notion","③ ordinary"],
+[59,"But in this ( __ ) place, it doesn't seem to be unusual.","하지만 이 이해하기 힘든 장소에서는 그것이 특이해 보이지 않는다.","① mysterious  ② imaginary  ③ unusual  ④ unexpected","① mysterious"],
+[60,"What's more, the number thirteen is often ( __ ) with bad luck in Western cultures.","게다가, 숫자 13은 서양 문화에서 종종 불운과 연관된다.","① improved  ② associated  ③ located  ④ surrounded","② associated"],
+[61,"The government tries to ( __ ) everyone's life in this imaginary country.","이 가상의 나라에서 정부는 모든 사람의 삶을 통제하려 한다.","① expand  ② limit  ③ locate  ④ control","④ control"],
+[62,"It has even created a new language to ( __ ) people's thoughts and expressions.","그것은 심지어 사람들의 생각과 표현을 제한하기 위해 새로운 언어를 만들었다.","① control  ② influence  ③ limit  ④ expand","③ limit"],
+[63,"As long as Big Brother is ( __ ), the people of Oceania will never be free.","Big Brother가 권력을 가지고 있는 한, 오세아니아의 사람들은 결코 자유롭지 않을 것이다.","① in power  ② give in  ③ take place  ④ come to mind","① in power"],
+[64,"Or will he ( __ ) and be controlled by Big Brother like the rest of the people?","아니면 그는 굴복하고 나머지 사람들처럼 Big Brother에 의해 통제될 것인가?","① take place  ② give in  ③ come to mind  ④ run away","② give in"],
+[65,"The story ( __ ) place in an imaginary country called Oceania in the year 1984.","그 이야기는 1984년에 오세아니아라는 가상의 나라에서 발생한다.","① comes  ② gives  ③ takes  ④ makes","③ takes"],
+[66,"You just need to keep at it until the picture emerges and you can see ( __ ) what you have achieved.","그림이 드러날 때까지 계속해야 하며 자신이 이룬 것을 명확하게 볼 수 있다.","① gradually  ② clearly  ③ instantly  ④ straightforwardly","② clearly"],
+[67,"Sometimes you may find pieces that don't seem to ( __ ) anywhere right now.","때로는 지금 당장은 어디에도 속하지 않는 것처럼 보이는 조각들을 발견할 수도 있다.","① emerge  ② achieve  ③ treat  ④ belong","④ belong"],
+[68,"The full picture is going to emerge ( __ ) rather than instantly.","전체 그림은 즉각적으로가 아니라 점진적으로 드러날 것이다.","① gradually  ② straightforwardly  ③ instantly  ④ clearly","① gradually"],
+[69,"The television, ( __ ) two average baseball teams battling for fourth place, provided a formidable union.","텔레비전은 4위를 다투는 두 평범한 야구팀을 방송하고 있었음에도 불구하고 강력한 연대를 제공했다.","① providing  ② expanding  ③ though airing  ④ engaging","③ though airing"],
+[70,"The television provided a unique ( __ ) for marketers to engage their publics.","텔레비전은 마케터들이 대중과 소통할 독특한 기회를 제공했다.","① means  ② opportunity  ③ presence  ④ notion","② opportunity"],
+[71,"No one was at the counter, so I thought the clerk was working in the ( __ ).","아무도 카운터에 없어서 나는 직원이 안쪽에서 일하고 있다고 생각했다.","① front  ② floor  ③ counter  ④ back","④ back"],
+[72,"I checked for a ( __ ) on his neck.","나는 그의 목에서 맥박을 확인했다.","① pulse  ② consciousness  ③ breath  ④ pain","① pulse"],
+[73,"It felt great to help save someone's ( __ )!","누군가의 생명을 구하는 것을 돕는 것이 정말 기쁘게 느껴졌다!","① career  ② fear  ③ life  ④ injury","③ life"],
+[74,"My room was full of medals and ( __ ) from races I had competed in.","내 방은 내가 참가한 경기에서 받은 메달과 상들로 가득 차 있었다.","① injuries  ② awards  ③ results  ④ flashbacks","② awards"],
+[75,"During the national 100-meter championship race, my Olympic dreams came to a ( __ ) end.","전국 100미터 선수권 대회에서 나의 올림픽 꿈은 갑작스러운 끝을 맞이했다.","① painful  ② ordinary  ③ sudden  ④ unexpected","③ sudden"],
+[76,"At first, I didn't think much of the ( __ ).","처음에, 나는 부상에 대해 심각하게 생각하지 않았다.","① injury  ② pain  ③ result  ④ pulse","① injury"],
+[77,"But the test ( __ ) from the hospital were not hopeful.","하지만 병원에서 나온 검사 결과는 희망적이지 않았다.","① awards  ② injuries  ③ results  ④ treatments","③ results"],
+[78,"I could not watch sports anymore because it was just too ( __ ).","그것이 너무 고통스러워서 더 이상 스포츠를 볼 수 없었다.","① ordinary  ② painful  ③ sudden  ④ fearful","② painful"],
+[79,"Two years passed and I was still trying to ( __ ) to my ordinary high school life without sports.","2년이 지났고 나는 여전히 스포츠 없는 평범한 고등학교 생활에 적응하려 노력하고 있었다.","① run away from  ② shut out  ③ come across  ④ get used","④ get used"],
+[80,"Sports medicine is a field that ( __ ) with the treatment and prevention of sports injuries.","스포츠 의학은 스포츠 부상의 치료와 예방을 다루는 분야이다.","① deals  ② results  ③ relates  ④ helps","① deals"],
+[81,"Today, thanks to my brave ( __ ), I am studying to be a star on the sidelines.","오늘날 나의 용감한 결정 덕분에 나는 측선에서 스타가 되기 위해 공부하고 있다.","① courage  ② effort  ③ decision  ④ patience","③ decision"],
+[82,"I didn't want to make a ( __ ) of myself in front of the whole school.","나는 전교생 앞에서 웃음거리가 되고 싶지 않았다.","① decision  ② fool  ③ notion  ④ character","② fool"],
+[83,"I delivered my speech to the ( __ ) school.","나는 전교생에게 연설을 했다.","① public  ② valuable  ③ annual  ④ entire","④ entire"],
+[84,"But my act of courage taught me a valuable lesson: I can do anything that I put my mind ( __ ).","하지만 나의 용기 있는 행동은 마음먹으면 무엇이든 할 수 있다는 귀중한 교훈을 가르쳐 주었다.","① to  ② for  ③ in  ④ at","① to"],
+[85,"A powerful first line can catch readers' attention and make them want to read ( __ ).","강력한 첫 문장은 독자들의 관심을 끌고 계속 읽고 싶게 만들 수 있다.","① out  ② up  ③ on  ④ away","③ on"],
+[86,"There is no single ( __ ), but everyone is brave in their own way.","하나의 정의는 없지만 모든 사람은 자신만의 방식으로 용감하다.","① impression  ② definition  ③ exception  ④ expression","② definition"],
+[87,"One evening, I went to a ( __ ) store to buy some snacks.","어느 날 저녁, 나는 간식을 사러 편의점에 갔다.","① major  ② ordinary  ③ normal  ④ convenience","④ convenience"],
+[88,"The main character Stanley ( __ ) that there is another reason for the digging besides improving character.","주인공 Stanley는 품성 개선 외에 땅을 파는 것에 다른 이유가 있다고 의심한다.","① suspects  ② improves  ③ locates  ④ digs","① suspects"],
+[89,"In this mysterious place, a clock striking thirteen doesn't seem to be ( __ ).","이 이해하기 힘든 장소에서 13번 치는 시계는 특이해 보이지 않는다.","① ordinary  ② imaginary  ③ unusual  ④ mysterious","③ unusual"],
+[90,"The story takes place in an ( __ ) country called Oceania.","그 이야기는 오세아니아라는 가상의 나라에서 일어난다.","① mysterious  ② imaginary  ③ unusual  ④ unexpected","② imaginary"],
+[91,"Or will he give in and be ( __ ) by Big Brother like the rest?","아니면 그는 굴복하고 나머지 사람들처럼 Big Brother에 의해 통제될 것인가?","① located  ② surrounded  ③ limited  ④ controlled","④ controlled"],
+[92,"Radio provided the driving force to ( __ ) the era of patronage.","라디오는 후원의 시대를 확고히 하는 원동력을 제공했다.","① solidify  ② expand  ③ enhance  ④ engage","① solidify"],
+[93,"The television provided a means for sports organizations to expand their market ( __ ).","텔레비전은 스포츠 단체들이 시장 진출을 확장할 수단을 제공했다.","① opportunity  ② organization  ③ presence  ④ expansion","③ presence"],
+[94,"The ( __ ) of a 'picture being worth a thousand words' became a reality with television.","'그림 하나가 천 마디 말의 가치가 있다'는 개념이 텔레비전과 함께 현실이 되었다.","① means  ② notion  ③ presence  ④ intervention","② notion"],
+[95,"I checked for a pulse on his neck. Fortunately, he was still ( __ ).","나는 그의 목에서 맥박을 확인했다. 다행히도, 그는 여전히 호흡하고 있었다.","① rushed  ② performed  ③ regained  ④ breathing","④ breathing"],
+[96,"This was my chance to stop ( __ ) from my problems and fears.","이것은 내가 문제와 두려움에서 도망치는 것을 멈출 기회였다.","① running away  ② shutting out  ③ getting used  ④ coming across","① running away"],
+[97,"I heard a voice growing louder in my head, saying '( __ ) it!'","나는 내 머릿속에서 '도전해봐!'라는 목소리가 점점 커지는 것을 들었다.","① Make  ② Do  ③ Go for  ④ Put","③ Go for"],
+[98,"Orwell hints to the readers that they are about to enter a world that is dark and ( __ ).","오웰은 독자들에게 그들이 어둡고 낯선 세계에 들어가려 한다는 것을 암시한다.","① mysterious  ② unfamiliar  ③ unusual  ④ imaginary","② unfamiliar"],
+[99,"What's more, the number thirteen is often ( __ ) with bad luck in Western cultures.","게다가, 숫자 13은 서양 문화에서 종종 불운과 연관된다.","① located  ② surrounded  ③ improved  ④ associated","④ associated"],
+[100,"It has even created a new language to limit people's thoughts and ( __ ).","그것은 심지어 사람들의 생각과 표현을 제한하기 위해 새로운 언어를 만들었다.","① expressions  ② locations  ③ exceptions  ④ impressions","① expressions"],
+];
+
+// ── PART2: 101~200 어법 변형 (한글 해석 추가됨) ───────────────────────────
+const P2 = [
+[101,"You just need to keep at it until the picture ( ________ ) and you can see clearly what you have achieved.","그림이 드러날 때까지 계속 노력해야 하며 자신이 이룬 것을 명확하게 볼 수 있다.","[보기] emerge / achieve / belong / keep","emerges"],
+[102,"While sometimes it will be ( ________ ) to fit pieces together, at other times it will take more effort.","때로는 조각들을 짜맞추기 쉬울 것이고 다른 때에는 더 많은 노력이 필요할 것이다.","[보기] straightforward / gradually / instantly / clearly","straightforward"],
+[103,"The full picture is going to emerge gradually rather than ( ________ ).","전체 그림은 즉각적으로가 아니라 점진적으로 드러날 것이다.","[보기] instant / gradual / clear / straight","instantly"],
+[104,"The television, though ( ________ ) two average baseball teams, provided an incredibly formidable union.","텔레비전은 두 평균적인 야구팀을 방송하고 있었음에도 불구하고 믿을 수 없을 만큼 강력한 연대를 제공했다.","[보기] air / battle / provide / engage","airing"],
+[105,"The invention that soon ( ________ ) remains to this day the most significant communication medium.","그 뒤를 이은 발명품은 오늘날까지도 가장 중요한 통신 매체로 남아있다.","[보기] follow / remain / influence / aid","followed"],
+[106,"The invention that soon followed remains the most significant medium that has ( ________ ) sports.","그 뒤를 이은 발명품은 오늘날까지도 스포츠에 영향을 주고 지원한 가장 중요한 통신 매체로 남아있다.","[보기] influence / aid / remain / follow","influenced"],
+[107,"Who knew what sportscaster Bill Stern ( ________ ) and introduced in 1939 would enhance the growth of sports marketing?","1939년에 Bill Stern이 질문하고 소개한 것이 스포츠 마케팅의 성장을 향상시킬지 누가 알았겠는가?","[보기] question / introduce / enhance / practice","questioned"],
+[108,"The operator asked me to ( ________ ) CPR on the clerk until the paramedics arrived.","교환원은 구급대원이 도착할 때까지 직원에게 CPR을 수행해달라고 요청했다.","[보기] perform / rush / regain / take over","perform"],
+[109,"I was scared, but I remembered ( ________ ) CPR at school.","나는 겁먹었지만, 학교에서 CPR을 배웠던 것을 기억했다.","[보기] learn / breathe / check / rush","learning"],
+[110,"Fortunately, he was still ( ________ ).","다행히도, 그는 여전히 호흡하고 있었다.","[보기] breathe / rush / perform / regain","breathing"],
+[111,"A few minutes later, the paramedics ( ________ ) in and took over the situation.","몇 분 후, 구급대원들이 돌진해 들어와 상황을 넘겨받았다.","[보기] rush / regain / carry / check","rushed"],
+[112,"Luckily, the clerk ( ________ ) consciousness.","다행히도, 직원이 의식을 되찾았다.","[보기] regain / rush / carry / perform","regained"],
+[113,"I dreamed of ( ________ ) an Olympic track and field athlete.","나는 올림픽 육상 선수가 되는 것을 꿈꿨다.","[보기] be / compete / carry / dream","being"],
+[114,"My room was full of medals and awards from races I had ( ________ ) in.","내 방은 내가 참가한 경기에서 받은 메달과 상들로 가득 차 있었다.","[보기] compete / carry / award / race","competed"],
+[115,"I was about to take the lead in the race when I suddenly ( ________ ) a pain in my knee.","경기에서 선두에 서려던 찰나 갑자기 무릎에 통증을 느꼈다.","[보기] feel / take / carry / prevent","felt"],
+[116,"I fell to the ground and had to be ( ________ ) off the track.","나는 바닥에 쓰러졌고 트랙에서 옮겨져야 했다.","[보기] carry / rush / prevent / award","carried"],
+[117,"The doctors said my knee injury would prevent me from ( ________ ) again.","의사들은 내 무릎 부상이 내가 다시 달리는 것을 막을 것이라고 했다.","[보기] run / prevent / feel / carry","running"],
+[118,"Every night, I had ( ________ ) flashbacks of my injury.","매일 밤 나는 부상에 대한 고통스러운 회상을 했다.","[보기] pain / flash / prevent / ordinary","painful"],
+[119,"Two years passed and I was still trying to get ( ________ ) to my ordinary high school life without sports.","2년이 지났고 나는 여전히 스포츠 없는 평범한 고등학교 생활에 적응하려 노력하고 있었다.","[보기] use / relate / shut / come","used"],
+[120,"So I made up my mind and ( ________ ) to the major.","그래서 나는 결심하고 그 전공에 지원했다.","[보기] apply / decide / sign / make","applied"],
+[121,"Today, thanks to my brave decision, I am ( ________ ) to be a star on the sidelines.","오늘날 나의 용감한 결정 덕분에 나는 측선에서 스타가 되기 위해 공부하고 있다.","[보기] study / apply / deal / prevent","studying"],
+[122,"Ever since I was young, I have ( ________ ) great public speakers.","어릴 때부터 나는 훌륭한 공개 연사들을 존경해왔다.","[보기] admire / inspire / move / engage","admired"],
+[123,"I hoped to ( ________ ) and move audiences like them someday.","나는 언젠가 그들처럼 청중에게 영감을 주고 감동을 주고 싶었다.","[보기] inspire / move / admire / deliver","inspire"],
+[124,"This fear kept me ( ________ ) the stage rather than on it.","이 두려움이 나를 무대 위가 아닌 무대 뒤에 머물게 했다.","[보기] behind / instead of / rather than / as long as","behind"],
+[125,"Last year was my final chance before ( ________ ) from high school.","작년은 고등학교를 졸업하기 전 나의 마지막 기회였다.","[보기] graduate / sign up / deliver / grow","graduating"],
+[126,"I heard a voice ( ________ ) louder in my head, saying 'Go for it!'","나는 내 머릿속에서 '도전해봐!'라는 목소리가 점점 커지는 것을 들었다.","[보기] grow / sign / deliver / keep","growing"],
+[127,"I decided to ( ________ ) up for the contest.","나는 대회에 신청하기로 결심했다.","[보기] sign / make / deliver / grow","sign"],
+[128,"I ( ________ ) my speech to the entire school.","나는 전교생에게 연설을 했다.","[보기] deliver / inspire / move / admire","delivered"],
+[129,"But my act of courage ( ________ ) me a valuable lesson.","하지만 나의 용기 있는 행동은 나에게 귀중한 교훈을 가르쳐 주었다.","[보기] teach / learn / inspire / make","taught"],
+[130,"Authors often spend weeks, months, or even years ( ________ ) up with the perfect opening line.","작가들은 종종 완벽한 첫 문장을 생각해내는 데 몇 주, 몇 달, 심지어 몇 년을 보낸다.","[보기] come / catch / make / open","coming"],
+[131,"Every child becomes an adult ( ________ ) they want to or not.","모든 아이는 원하든 원하지 않든 어른이 된다.","[보기] whether / as long as / despite / insofar as","whether"],
+[132,"Peter Pan ( ________ ) to grow older.","피터팬은 더 이상 자라는 것을 거부한다.","[보기] refuse / remain / state / bear","refuses"],
+[133,"It is a magical place where dreams are ( ________ ) and excitement never ends.","그것은 꿈이 태어나고 신남이 결코 끝나지 않는 마법의 장소이다.","[보기] bear / locate / remain / refuse","born"],
+[134,"Only children can visit Neverland and they do not grow up ( ________ ) they remain there.","오직 아이들만 네버랜드를 방문할 수 있고 그들은 그곳에 머무는 한 성장하지 않는다.","[보기] as long as / whether / despite / in the end","as long as"],
+[135,"What ( ________ ) to mind when you hear the word 'camp'?","'캠프'라는 단어를 들으면 무엇이 떠오르는가?","[보기] come / surround / state / hint","comes"],
+[136,"Perhaps it is a beautiful place where a green forest ( ________ ) a blue lake.","아마도 그것은 초록 숲이 파란 호수를 둘러싸고 있는 아름다운 장소일 것이다.","[보기] surround / locate / improve / suspect","surrounds"],
+[137,"Through this irony, Sachar is ( ________ ) that Camp Green Lake is not a normal camp.","이 역설을 통해 Sachar는 그린 레이크 캠프가 정상적인 캠프가 아님을 암시하고 있다.","[보기] hint / surround / locate / improve","hinting"],
+[138,"The boys are expected to ( ________ ) their character by digging holes every day.","소년들은 매일 구덩이를 파서 품성을 개선할 것으로 기대된다.","[보기] improve / dig / suspect / locate","improve"],
+[139,"Stanley ( ________ ) that there is another reason for the digging.","Stanley는 땅을 파는 것에 다른 이유가 있다고 의심한다.","[보기] suspect / improve / locate / dig","suspects"],
+[140,"Typically, clocks ( ________ ) from one to twelve times.","일반적으로 시계는 한 번에서 열두 번 친다.","[보기] strike / improve / state / remain","strike"],
+[141,"The number thirteen is often ( ________ ) with bad luck in Western cultures.","숫자 13은 서양 문화에서 종종 불운과 연관된다.","[보기] associate / locate / surround / improve","associated"],
+[142,"In this way, Orwell hints to the readers that they are about to enter a world that is dark and ( ________ ).","이런 식으로 오웰은 독자들에게 그들이 어둡고 낯선 세계에 들어가려 한다는 것을 암시한다.","[보기] unfamiliar / mysterious / unusual / imaginary","unfamiliar"],
+[143,"The government tries to ( ________ ) everyone's life.","정부는 모든 사람의 삶을 통제하려 한다.","[보기] control / locate / limit / surround","control"],
+[144,"It has even created a new language to ( ________ ) people's thoughts and expressions.","그것은 심지어 사람들의 생각과 표현을 제한하기 위해 새로운 언어를 만들었다.","[보기] limit / control / influence / expand","limit"],
+[145,"As long as Big Brother is in power, the people of Oceania will never be ( ________ ).","Big Brother가 권력을 가지고 있는 한, 오세아니아의 사람들은 결코 자유롭지 않을 것이다.","[보기] free / controlled / limited / located","free"],
+[146,"You just have to ( ________ ) it like doing a jigsaw.","당신은 그저 그것을 조각그림 맞추기처럼 다루어야 한다.","[보기] treat / achieve / belong / emerge","treat"],
+[147,"You just need to keep at it until the picture ( ________ ).","그림이 드러날 때까지 계속 노력해야 한다.","[보기] emerge / achieve / belong / treat","emerges"],
+[148,"Radio provided the driving force to ( ________ ) the era of patronage.","라디오는 후원의 시대를 확고히 하는 원동력을 제공했다.","[보기] solidify / expand / enhance / engage","solidify"],
+[149,"The television, though ( ________ ) two average baseball teams battling for fourth place, provided a formidable union.","텔레비전은 4위를 다투는 두 평균적인 야구팀을 방송하고 있었음에도 불구하고 강력한 연대를 제공했다.","[보기] air / battle / expand / engage","airing"],
+[150,"The television provided a means for sports organizations to ( ________ ) their market presence.","텔레비전은 스포츠 단체들이 시장 진출을 확장할 수단을 제공했다.","[보기] expand / engage / enhance / solidify","expand"],
+[151,"I ( ________ ) called 911 and explained the situation.","나는 즉시 911에 전화하여 상황을 설명했다.","[보기] immediate / sudden / fortunate / gradual","immediately"],
+[152,"I looked over the counter and saw the clerk ( ________ ) on the floor.","나는 카운터 너머를 보았고 직원이 바닥에 누워있는 것을 보았다.","[보기] lie / perform / rush / breathe","lying"],
+[153,"I was ( ________ ), but I remembered learning CPR at school.","나는 겁먹었지만, 학교에서 CPR을 배웠던 것을 기억했다.","[보기] scare / breathe / perform / rush","scared"],
+[154,"The paramedics ( ________ ) in and took over the situation.","구급대원들이 돌진해 들어와 상황을 넘겨받았다.","[보기] rush / regain / carry / check","rushed"],
+[155,"It felt great to help ( ________ ) someone's life!","누군가의 생명을 구하는 것을 돕는 것이 정말 기쁘게 느껴졌다!","[보기] save / rush / perform / breathe","save"],
+[156,"I was about to take the lead in the race when I suddenly ( ________ ) a pain in my knee.","경기에서 선두에 서려던 찰나 갑자기 무릎에 통증을 느꼈다.","[보기] feel / take / carry / prevent","felt"],
+[157,"I fell to the ground and had to be ( ________ ) off the track.","나는 바닥에 쓰러졌고 트랙에서 옮겨져야 했다.","[보기] carry / rush / award / prevent","carried"],
+[158,"Every night, I had flashbacks of my injury. I could not watch sports because it was just too ( ________ ).","매일 밤 나는 부상에 대한 회상을 했다. 그것이 너무 고통스러워서 스포츠를 볼 수 없었다.","[보기] pain / flash / ordinary / sudden","painful"],
+[159,"I ( ________ ) across an interesting university major called sports medicine.","나는 스포츠 의학이라는 흥미로운 대학 전공을 우연히 발견했다.","[보기] come / shut / run / get","came"],
+[160,"It ( ________ ) with the treatment and prevention of sports injuries.","그것은 스포츠 부상의 치료와 예방을 다룬다.","[보기] deal / result / relate / help","deals"],
+[161,"This was my chance to stop ( ________ ) away from my problems and fears.","이것은 내가 문제와 두려움에서 도망치는 것을 멈출 기회였다.","[보기] run / shut / get / come","running"],
+[162,"I ( ________ ) up my mind and applied to the major.","나는 결심하고 그 전공에 지원했다.","[보기] make / apply / decide / sign","made"],
+[163,"Today I am ( ________ ) to be a star on the sidelines instead of on the playing field.","오늘날 나는 경기장이 아닌 측선에서 스타가 되기 위해 공부하고 있다.","[보기] study / apply / deal / prevent","studying"],
+[164,"Ever since I was young, I have ( ________ ) great public speakers.","어릴 때부터 나는 훌륭한 공개 연사들을 존경해왔다.","[보기] admire / inspire / move / engage","admired"],
+[165,"I hoped to inspire and ( ________ ) audiences like them someday.","나는 언젠가 그들처럼 청중에게 영감을 주고 감동을 주고 싶었다.","[보기] move / inspire / admire / deliver","move"],
+[166,"I didn't want to make a fool of myself. This fear kept me ( ________ ) the stage.","나는 웃음거리가 되고 싶지 않았다. 이 두려움이 나를 무대 뒤에 머물게 했다.","[보기] behind / instead of / rather than / as long as","behind"],
+[167,"I really wanted to enter the contest, but I just didn't have enough ( ________ ).","나는 정말 대회에 참가하고 싶었지만, 충분한 용기가 없었다.","[보기] courage / patience / decision / effort","courage"],
+[168,"Last year was my final chance before ( ________ ) from high school.","작년은 고등학교를 졸업하기 전 나의 마지막 기회였다.","[보기] graduate / sign / deliver / grow","graduating"],
+[169,"I ( ________ ) my speech to the entire school.","나는 전교생에게 연설을 했다.","[보기] deliver / inspire / move / admire","delivered"],
+[170,"My act of courage ( ________ ) me a valuable lesson.","나의 용기 있는 행동은 나에게 귀중한 교훈을 가르쳐 주었다.","[보기] teach / learn / inspire / make","taught"],
+[171,"A powerful first line can catch readers' attention and make them want to read ( ________ ).","강력한 첫 문장은 독자들의 관심을 끌고 계속 읽고 싶게 만들 수 있다.","[보기] on / up / out / away","on"],
+[172,"Authors often spend years ( ________ ) up with the perfect opening line.","작가들은 종종 완벽한 첫 문장을 생각해내는 데 몇 년을 보낸다.","[보기] come / catch / make / open","coming"],
+[173,"Peter Pan is a boy who ( ________ ) to grow older.","피터팬은 더 이상 자라는 것을 거부하는 소년이다.","[보기] refuse / remain / state / bear","refuses"],
+[174,"Only children can visit Neverland and they do not grow up as long as they ( ________ ) there.","오직 아이들만 네버랜드를 방문할 수 있고 그들은 그곳에 머무는 한 성장하지 않는다.","[보기] remain / refuse / state / bear","remain"],
+[175,"But in the end, the three children decide to return home and grow ( ________ ).","하지만 결국, 세 아이들은 집으로 돌아가 성장하기로 결심한다.","[보기] up / away / on / over","up"],
+[176,"Perhaps it is a beautiful place where a green forest ( ________ ) a blue lake.","아마도 그것은 초록 숲이 파란 호수를 둘러싸고 있는 아름다운 장소일 것이다.","[보기] surround / locate / improve / suspect","surrounds"],
+[177,"It states that there is no lake there ( ________ ) its name.","그것은 이름에도 불구하고 거기에는 호수가 없다고 말한다.","[보기] despite / whether / as long as / though","despite"],
+[178,"Through this irony, the author is ( ________ ) that Camp Green Lake is not a normal camp.","이 역설을 통해 작가는 그린 레이크 캠프가 정상적인 캠프가 아님을 암시하고 있다.","[보기] hint / surround / locate / improve","hinting"],
+[179,"Stanley ( ________ ) that there is another reason for the digging.","Stanley는 땅을 파는 것에 다른 이유가 있다고 의심한다.","[보기] suspect / improve / locate / dig","suspects"],
+[180,"In a normal world, a clock ( ________ ) thirteen is out of the ordinary.","정상적인 세계에서 13번 치는 시계는 색다른 것이다.","[보기] strike / improve / state / remain","striking"],
+[181,"What's more, the number thirteen is often ( ________ ) with bad luck.","게다가, 숫자 13은 종종 불운과 연관된다.","[보기] associate / locate / surround / improve","associated"],
+[182,"The story ( ________ ) place in an imaginary country called Oceania.","그 이야기는 오세아니아라는 가상의 나라에서 발생한다.","[보기] take / come / give / make","takes"],
+[183,"The government tries to control everyone's life. It has even created a new language to ( ________ ) people's thoughts.","정부는 모든 사람의 삶을 통제하려 한다. 심지어 사람들의 생각을 제한하기 위해 새로운 언어를 만들었다.","[보기] limit / control / influence / expand","limit"],
+[184,"As long as Big Brother is in power, the people of Oceania will never be ( ________ ).","Big Brother가 권력을 가지고 있는 한, 오세아니아의 사람들은 결코 자유롭지 않을 것이다.","[보기] free / controlled / limited / located","free"],
+[185,"Or will he ( ________ ) in and be controlled by Big Brother?","아니면 그는 굴복하고 Big Brother에 의해 통제될 것인가?","[보기] give / take / come / make","give"],
+[186,"Evolution is characterized by long periods of relative stability that ( ________ ) by sudden changes.","진화는 갑작스러운 변화로 중단되는 상대적 안정의 긴 기간이 특징이다.","[보기] punctuate / overestimate / privilege / catch up on","are punctuated"],
+[187,"It also leads us to ( ________ ) our chances of winning the lottery.","그것은 또한 우리가 복권에 당첨될 가능성을 과대평가하게 만든다.","[보기] overestimate / punctuate / privilege / catch up on","overestimating"],
+[188,"In many developed nations, levels of material well-being have moved beyond subsistence to ( ________ ) abundance.","많은 선진국에서 물질적 복지의 수준이 최저 생계를 넘어 전례 없는 풍요로 옮겨 갔다.","[보기] unprecedented / irrational / insofar as / admiration","unprecedented"],
+[189,"The full picture is going to emerge ( ________ ) rather than instantly.","전체 그림은 즉각적으로가 아니라 점진적으로 드러날 것이다.","[보기] gradual / instant / clear / straight","gradually"],
+[190,"Sometimes you may find pieces that don't seem to ( ________ ) anywhere right now.","때로는 지금 당장은 어디에도 속하지 않는 것처럼 보이는 조각들을 발견할 수도 있다.","[보기] belong / emerge / achieve / treat","belong"],
+[191,"Radio ( ________ ) the driving force to solidify the era of patronage.","라디오는 후원의 시대를 확고히 하는 원동력을 제공했다.","[보기] provide / solidify / expand / engage","provided"],
+[192,"The invention that soon followed remains the medium that has influenced and ( ________ ) the development of sports.","그 뒤를 이은 발명품은 오늘날까지도 스포츠의 발달에 영향을 주고 지원한 가장 중요한 통신 매체로 남아있다.","[보기] aid / influence / remain / follow","aided"],
+[193,"Who knew what sportscaster Bill Stern questioned and ( ________ ) in 1939 would enhance sports marketing?","1939년에 Bill Stern이 질문하고 소개한 것이 스포츠 마케팅 관행의 성장을 향상시킬지 누가 알았겠는가?","[보기] introduce / enhance / question / expand","introduced"],
+[194,"The television provided a means and a unique opportunity for marketers to ( ________ ) their publics.","텔레비전은 스포츠 단체들이 시장 진출을 확장하고 마케터들이 대중과 소통할 독특한 기회를 제공했다.","[보기] engage / expand / enhance / solidify","engage"],
+[195,"No one was at the counter, so I thought the clerk was ( ________ ) in the back.","아무도 카운터에 없어서 나는 직원이 안쪽에서 일하고 있다고 생각했다.","[보기] work / rush / perform / breathe","working"],
+[196,"I ( ________ ) for a pulse on his neck.","나는 그의 목에서 맥박을 확인했다.","[보기] check / rush / perform / breathe","checked"],
+[197,"A few minutes later, the paramedics rushed in and ( ________ ) over the situation.","몇 분 후, 구급대원들이 돌진해 들어와 상황을 넘겨받았다.","[보기] take / rush / regain / carry","took"],
+[198,"My Olympic dreams came to a sudden end, however, I was about to ( ________ ) the lead.","나의 올림픽 꿈은 갑작스러운 끝을 맞이했지만, 나는 선두에 서려던 참이었다.","[보기] take / carry / award / compete","take"],
+[199,"Two years passed and I was still ( ________ ) to get used to my ordinary high school life without sports.","2년이 지났고 나는 여전히 스포츠 없는 평범한 고등학교 생활에 적응하려 노력하고 있었다.","[보기] try / shut / come / get","trying"],
+[200,"I decided to sign up for the contest. I ( ________ ) my speech to the entire school.","나는 대회에 신청하기로 결심했다. 나는 전교생에게 연설을 했다.","[보기] deliver / inspire / move / admire","delivered"],
+];
+
+// ── PART3: 201~250 어휘-뜻 매칭 ──────────────────────────────────────────
+const P3_MATCH = [
+  [201,"in advance","미리, 사전에"],[202,"unfold","펼쳐지다, 펼치다"],[203,"straightforward","단순한, 쉬운"],[204,"patience","인내(심)"],[205,"driving force","이끄는 힘, 원동력"],
+  [206,"solidify","확고히 하다"],[207,"patronage","애용, 단골"],[208,"significant","중요한"],[209,"formidable","강력한, 괴장한"],[210,"presence","존재, 진출"],
+  [211,"engage","~의 관심을 끌다"],[212,"notion","개념"],[213,"intervention","개입"],[214,"enhance","향상하다"],[215,"decade","10년"],
+  [216,"profitable","수익을 내는"],[217,"paramedic","구급대원"],[218,"consciousness","의식"],[219,"pulse","맥박"],[220,"regain","되찾다, 회복하다"],
+  [221,"take over","넘겨받다"],[222,"perform","수행하다"],[223,"operator","전화 교환원"],[224,"immediately","즉시"],[225,"flashback","회상"],
+  [226,"shut out","차단하다"],[227,"prevent","못하게 막다"],[228,"injury","부상"],[229,"track and field","육상 경기"],[230,"take the lead","선두에 서다"],
+  [231,"compete","참가(경쟁)하다"],[232,"sudden","갑작스러운"],[233,"come across","우연히 발견하다"],[234,"treatment","치료"],[235,"prevention","방지, 예방"],
+  [236,"sideline","측선, 사이드라인"],[237,"make up one's mind","결심하다"],[238,"get used to","~에 적응하다"],[239,"apply","지원하다"],[240,"run away","도망치다"],
+  [241,"admire","존경(동경)하다"],[242,"inspire","격려(고무)하다"],[243,"make a fool of","~을 웃음거리로 만들다"],[244,"annual","매년의, 연례의"],[245,"courage","용기"],
+  [246,"graduate","졸업하다"],[247,"deliver","(연설, 강연을) 하다"],[248,"valuable","값진, 귀중한"],[249,"come up with","생각해 내다"],[250,"impression","인상, 감명"],
+];
+
+// ── PART4: 251~300 문장 배열 (수정: [] 안에서 답에 해당하는 단어 제거) ───────────────
+// 형식: [번호, 영어문장(빈칸표시), 한글해석, 보기문자열, 배열할단어들(빈칸단어 제외), 빈칸정답, 배열정답]
+const P4 = [
+[251,"Just as you don't know everything in advance about a trip, ( __ ) [ you / know / everything / about ] how your new life might unfold.","여행에 대해 모든 것을 사전에 알지 못하는 것처럼, 새로운 삶이 어떻게 펼쳐질지도 알 수 없다.","[빈칸 보기] neither can / as long as / in advance / rather than","you / know / everything / about","neither can","neither can you know everything about"],
+[252,"You just have to ( __ ) [ it / like / doing / a / jigsaw ].","당신은 그저 그것을 조각그림 맞추기처럼 다루어야 한다.","[빈칸 보기] treat / achieve / belong / emerge","it / like / doing / a / jigsaw","treat","treat it like doing a jigsaw"],
+[253,"Sometimes you will find interesting pieces that ( __ ) [ a / whole / new / section / up ].","때로는 완전히 새로운 부분을 열어주는 흥미로운 조각들을 발견할 것이다.","[빈칸 보기] open up / keep at / get used to / catch up on","a / whole / new / section / up","open up","open up a whole new section"],
+[254,"You just need to ( __ ) [ it / until / the / picture / emerges ].","그림이 드러날 때까지 계속해야 한다.","[빈칸 보기] keep at / open up / get used to / make up","it / until / the / picture / emerges","keep at","keep at it until the picture emerges"],
+[255,"Radio provided the driving force to ( __ ) [ the / era / of / patronage ].","라디오는 후원의 시대를 확고히 하는 원동력을 제공했다.","[빈칸 보기] solidify / expand / enhance / engage","the / era / of / patronage","solidify","solidify the era of patronage"],
+[256,"The television provided a ( __ ) [ organizations / for / sports / to ] expand their market presence.","텔레비전은 스포츠 단체들이 시장 진출을 확장할 수단을 제공했다.","[빈칸 보기] means / notion / opportunity / union","organizations / for / sports / to","means","a means for sports organizations to"],
+[257,"The television provided a unique opportunity for marketers to ( __ ) [ their / publics ].","텔레비전은 마케터들이 대중과 소통할 독특한 기회를 제공했다.","[빈칸 보기] engage / expand / enhance / solidify","their / publics","engage","engage their publics"],
+[258,"I looked over the counter and saw the clerk ( __ ) [ on / the / floor ].","나는 카운터 너머를 보았고 직원이 바닥에 누워있는 것을 보았다.","[빈칸 보기] lying / performing / rushing / breathing","on / the / floor","lying","lying on the floor"],
+[259,"The operator asked me to ( __ ) [ CPR / on / the / clerk ] until the paramedics arrived.","교환원은 구급대원이 도착할 때까지 직원에게 CPR을 수행해달라고 요청했다.","[빈칸 보기] perform / rush / regain / take over","CPR / on / the / clerk","perform","perform CPR on the clerk"],
+[260,"A few minutes later, the paramedics ( __ ) [ in / and / took / over ] the situation.","몇 분 후, 구급대원들이 돌진해 들어와 상황을 넘겨받았다.","[빈칸 보기] rushed in / regained / carried off / checked for","in / and / took / over","rushed in","rushed in and took over"],
+[261,"Luckily, the clerk ( __ ) [ consciousness ].","다행히도, 직원이 의식을 되찾았다.","[빈칸 보기] regained / rushed / performed / carried","consciousness","regained","regained consciousness"],
+[262,"I dreamed of ( __ ) [ an / Olympic / track / and / field / athlete ].","나는 올림픽 육상 선수가 되는 것을 꿈꿨다.","[빈칸 보기] being / competing / carrying / performing","an / Olympic / track / and / field / athlete","being","being an Olympic track and field athlete"],
+[263,"I was about to ( __ ) [ in / the / race ] when I suddenly felt a pain.","경기에서 선두에 서려던 찰나 갑자기 통증을 느꼈다.","[빈칸 보기] take the lead / carry off / take over / come across","in / the / race","take the lead","take the lead in the race"],
+[264,"The doctors said my knee injury would ( __ ) [ me / from / running ] again.","의사들은 내 무릎 부상이 내가 다시 달리는 것을 막을 것이라고 했다.","[빈칸 보기] prevent / relate / result / shut out","me / from / running","prevent","prevent me from running"],
+[265,"So I ( __ ) [ everything / related / to / sports ] from my life.","그래서 나는 스포츠와 관련된 모든 것을 내 삶에서 차단했다.","[빈칸 보기] shut out / run away / come across / get used to","everything / related / to / sports","shut out","shut out everything related to sports"],
+[266,"Two years passed and I was still trying to ( __ ) [ my / ordinary / high / school / life ].","2년이 지났고 나는 여전히 평범한 고등학교 생활에 적응하려 노력하고 있었다.","[빈칸 보기] get used to / come across / shut out / run away","my / ordinary / high / school / life","get used to","get used to my ordinary high school life"],
+[267,"Then one day, I ( __ ) [ an / interesting / university ] major called sports medicine.","그러던 어느 날, 나는 스포츠 의학이라는 흥미로운 대학 전공을 우연히 발견했다.","[빈칸 보기] came across / ran away / shut out / got used to","an / interesting / university","came across","came across an interesting university"],
+[268,"This was my chance to stop ( __ ) [ my / problems / and / fears ].","이것은 내가 문제와 두려움에서 도망치는 것을 멈출 기회였다.","[빈칸 보기] running away from / shutting out / coming across / getting used to","my / problems / and / fears","running away from","running away from my problems and fears"],
+[269,"So I ( __ ) and applied to the major.","그래서 나는 결심하고 그 전공에 지원했다.","[빈칸 보기] made up my mind / came across / signed up for / got used to","—","made up my mind","made up my mind"],
+[270,"Today, thanks to my brave ( __ ), I am studying to be a star on the sidelines.","오늘날, 나의 용감한 결정 덕분에, 나는 측선에서 스타가 되기 위해 공부하고 있다.","[빈칸 보기] decision / courage / impression / expression","—","decision","decision"],
+[271,"I hoped to inspire and ( __ ) [ audiences / like / them ] someday.","나는 언젠가 그들처럼 청중에게 영감을 주고 감동을 주고 싶었다.","[빈칸 보기] move / inspire / admire / deliver","audiences / like / them","move","move audiences like them"],
+[272,"This fear kept me ( __ ) [ the / stage ] rather than on it.","이 두려움이 나를 무대 위가 아닌 무대 뒤에 머물게 했다.","[빈칸 보기] behind / instead of / rather than / as long as","the / stage","behind","behind the stage"],
+[273,"That's why I never entered the ( __ ) [ speech / contest ] at my school.","그래서 나는 학교의 연례 연설 대회에 참가한 적이 없었다.","[빈칸 보기] annual / entire / valuable / public","speech / contest","annual","annual speech contest"],
+[274,"Last year was my final chance before ( __ ) [ from / high / school ].","작년은 고등학교를 졸업하기 전 나의 마지막 기회였다.","[빈칸 보기] graduating from / signing up for / coming up with / making up","from / high / school","graduating from","graduating from high school"],
+[275,"I decided to ( __ ) [ the / contest ].","나는 대회에 신청하기로 결심했다.","[빈칸 보기] sign up for / make up for / come up with / catch up on","the / contest","sign up for","sign up for the contest"],
+[276,"I ( __ ) [ my / speech / to / the / entire / school ].","나는 전교생에게 연설을 했다.","[빈칸 보기] delivered / inspired / moved / admired","my / speech / to / the / entire / school","delivered","delivered my speech to the entire school"],
+[277,"But my act of courage ( __ ) [ me / a / valuable / lesson ]: I can do anything I put my mind to.","하지만 나의 용기 있는 행동은 나에게 귀중한 교훈을 가르쳐 주었다.","[빈칸 보기] taught / learned / inspired / made","me / a / valuable / lesson","taught","taught me a valuable lesson"],
+[278,"Authors often spend years ( __ ) [ the / perfect / opening / line ].","작가들은 종종 완벽한 첫 문장을 생각해내는 데 몇 년을 보낸다.","[빈칸 보기] coming up with / catching up on / making up for / signing up for","the / perfect / opening / line","coming up with","coming up with the perfect opening line"],
+[279,"Every child becomes an adult ( __ ) [ they / want / to / or / not ].","모든 아이는 원하든 원하지 않든 어른이 된다.","[빈칸 보기] whether / as long as / despite / in the end","they / want / to / or / not","whether","whether they want to or not"],
+[280,"Peter Pan is a boy who ( __ ) [ to / grow / older ].","피터팬은 더 이상 자라는 것을 거부하는 소년이다.","[빈칸 보기] refuses / remains / states / bears","to / grow / older","refuses","refuses to grow older"],
+[281,"Only children can visit Neverland and they do not grow up ( __ ) [ they / remain / there ].","오직 아이들만 네버랜드를 방문할 수 있고 그들은 그곳에 머무는 한 성장하지 않는다.","[빈칸 보기] as long as / whether / despite / in the end","they / remain / there","as long as","as long as they remain there"],
+[282,"But in the end, the three children decide to return home and ( __ ).","하지만 결국, 세 아이들은 집으로 돌아가 성장하기로 결심한다.","[빈칸 보기] grow up / run away / give in / come across","—","grow up","grow up"],
+[283,"What ( __ ) [ when / you / hear / the / word / 'camp' ]?","'캠프'라는 단어를 들으면 무엇이 떠오르는가?","[빈칸 보기] comes to mind / takes place / gives in / surrounds","when / you / hear / the / word / 'camp'","comes to mind","comes to mind when you hear the word 'camp'"],
+[284,"Perhaps it is a beautiful place where a green forest ( __ ) [ a / blue / lake ].","아마도 그것은 초록 숲이 파란 호수를 둘러싸고 있는 아름다운 장소일 것이다.","[빈칸 보기] surrounds / locates / improves / suspects","a / blue / lake","surrounds","surrounds a blue lake"],
+[285,"It states that there is no lake there ( __ ) [ its / name ].","그것은 이름에도 불구하고 거기에는 호수가 없다고 말한다.","[빈칸 보기] despite / whether / as long as / though","its / name","despite","despite its name"],
+[286,"Through this irony, Sachar is ( __ ) [ that / Camp Green Lake / is / not ] a normal camp.","이 역설을 통해 Sachar는 그린 레이크 캠프가 정상적인 캠프가 아님을 암시하고 있다.","[빈칸 보기] hinting / surrounding / locating / improving","that / Camp Green Lake / is / not","hinting","hinting that Camp Green Lake is not"],
+[287,"The boys are expected to ( __ ) [ their / character / by / digging / holes ] every day.","소년들은 매일 구덩이를 파서 품성을 개선할 것으로 기대된다.","[빈칸 보기] improve / dig / suspect / locate","their / character / by / digging / holes","improve","improve their character by digging holes"],
+[288,"Stanley ( __ ) [ that / there / is / another / reason ] for the digging.","Stanley는 땅을 파는 것에 다른 이유가 있다고 의심한다.","[빈칸 보기] suspects / improves / locates / digs","that / there / is / another / reason","suspects","suspects that there is another reason"],
+[289,"In this way, Orwell hints to the readers that they are about to enter a world that is dark and ( __ ).","이런 식으로 오웰은 독자들에게 그들이 어둡고 낯선 세계에 들어가려 한다는 것을 암시한다.","[빈칸 보기] unfamiliar / mysterious / unusual / imaginary","—","unfamiliar","unfamiliar"],
+[290,"The story ( __ ) [ in / an / imaginary / country ] called Oceania in the year 1984.","그 이야기는 1984년에 오세아니아라는 가상의 나라에서 발생한다.","[빈칸 보기] takes place / comes to mind / gives in / surrounds","in / an / imaginary / country","takes place","takes place in an imaginary country"],
+[291,"The government tries to ( __ ) [ everyone's / life ].","정부는 모든 사람의 삶을 통제하려 한다.","[빈칸 보기] control / limit / locate / surround","everyone's / life","control","control everyone's life"],
+[292,"It has even created a new language to ( __ ) [ people's / thoughts / and / expressions ].","그것은 심지어 사람들의 생각과 표현을 제한하기 위해 새로운 언어를 만들었다.","[빈칸 보기] limit / control / influence / expand","people's / thoughts / and / expressions","limit","limit people's thoughts and expressions"],
+[293,"As long as Big Brother is ( __ ), the people of Oceania will never be free.","Big Brother가 권력을 가지고 있는 한, 오세아니아의 사람들은 결코 자유롭지 않을 것이다.","[빈칸 보기] in power / give in / take place / come to mind","—","in power","in power"],
+[294,"Or will he ( __ ) and be controlled by Big Brother?","아니면 그는 굴복하고 Big Brother에 의해 통제될 것인가?","[빈칸 보기] give in / take place / come to mind / run away","—","give in","give in"],
+[295,"Evolution is characterized by long periods of relative stability that ( __ ) [ by / sudden / changes ].","진화는 갑작스러운 변화로 중단되는 상대적 안정의 긴 기간이 특징이다.","[빈칸 보기] are punctuated / overestimate / privilege / catch up on","by / sudden / changes","are punctuated","are punctuated by sudden changes"],
+[296,"It also leads us to ( __ ) [ our / chances / of / winning / the / lottery ].","그것은 또한 우리가 복권에 당첨될 가능성을 과대평가하게 만든다.","[빈칸 보기] overestimating / punctuating / privileging / catching up on","our / chances / of / winning / the / lottery","overestimating","overestimating our chances of winning the lottery"],
+[297,"In developed nations, levels of well-being have moved beyond subsistence to ( __ ) [ abundance ].","많은 선진국에서 물질적 복지의 수준이 최저 생계를 넘어 전례 없는 풍요로 옮겨 갔다.","[빈칸 보기] unprecedented / irrational / insofar as / admiration","abundance","unprecedented","unprecedented abundance"],
+[298,"I ( __ ) [ for / a / pulse ] on his neck.","나는 그의 목에서 맥박을 확인했다.","[빈칸 보기] checked for / rushed in / took over / regained","for / a / pulse","checked for","checked for a pulse"],
+[299,"The notion of a 'picture being worth a thousand words' became a reality with the invention and its ( __ ) [ and / presentation ] of sports.","'그림 하나가 천 마디 말의 가치가 있다'는 개념이 스포츠의 개입과 제공으로 현실이 되었다.","[빈칸 보기] intervention / invention / influence / means","and / presentation","intervention","intervention and presentation"],
+[300,"I didn't want to ( __ ) [ of / myself ] in front of the whole school.","나는 전교생 앞에서 웃음거리가 되고 싶지 않았다.","[빈칸 보기] make a fool of / come up with / sign up for / make up for","of / myself","make a fool of","make a fool of myself"],
+];
+
+// ── PART5: 301~400 어휘 선택 (추가 / 한글해석 있음) ───────────────────────────
+const P5 = [
+[301,"Accepting that the full picture will emerge ( __ ) is key to handling a new career.","전체 그림이 점진적으로 드러날 것임을 받아들이는 것이 새로운 진로를 다루는 데 핵심이다.","① instantly  ② gradually  ③ straightforwardly  ④ clearly","② gradually"],
+[302,"You just have to keep at it; don't expect everything to happen ( __ ).","계속해야 한다; 모든 것이 즉각적으로 일어나기를 기대하지 마라.","① gradually  ② clearly  ③ instantly  ④ rather than","③ instantly"],
+[303,"Your new life might ( __ ) in ways you never imagined.","당신의 새로운 삶은 당신이 상상하지 못했던 방식으로 펼쳐질 수도 있다.","① treat  ② belong  ③ unfold  ④ achieve","③ unfold"],
+[304,"Some career pieces don't seem to ( __ ) anywhere right now — but be patient.","일부 진로 조각들은 지금 당장 어디에도 속하지 않는 것처럼 보일 수 있지만 인내해야 한다.","① emerge  ② belong  ③ treat  ④ keep","② belong"],
+[305,"The television, rather than radio, was the invention that ( __ ) as the most significant medium.","라디오보다는 텔레비전이 가장 중요한 매체로 남은 발명품이었다.","① followed  ② remained  ③ enhanced  ④ expanded","② remained"],
+[306,"Sports organizations used television to ( __ ) their market presence worldwide.","스포츠 단체들은 전 세계적으로 시장 진출을 확장하기 위해 텔레비전을 활용했다.","① solidify  ② engage  ③ expand  ④ enhance","③ expand"],
+[307,"The ( __ ) of a picture being worth a thousand words became real through television.","'그림이 천 마디 말의 가치가 있다'는 개념이 텔레비전을 통해 현실이 되었다.","① means  ② presence  ③ union  ④ notion","④ notion"],
+[308,"After looking over the counter, I saw the clerk ( __ ) motionless on the floor.","카운터 너머를 본 후, 나는 직원이 바닥에 움직임 없이 누워있는 것을 보았다.","① rushing  ② performing  ③ lying  ④ breathing","③ lying"],
+[309,"The 911 ( __ ) told me to begin CPR immediately.","911 교환원은 나에게 즉시 CPR을 시작하라고 말했다.","① paramedic  ② operator  ③ clerk  ④ athlete","② operator"],
+[310,"I pushed down on his chest, hoping the CPR would help him ( __ ) consciousness.","나는 CPR이 그가 의식을 되찾는 데 도움이 되기를 바라며 그의 가슴을 눌렀다.","① take over  ② rush  ③ regain  ④ perform","③ regain"],
+[311,"The paramedics said, 'You acted ( __ )! Well done.'","구급대원들은 '당신은 즉시 행동했어요! 잘 했어요.'라고 말했다.","① gradually  ② carefully  ③ instantly  ④ immediately","④ immediately"],
+[312,"During the race I was ( __ ) to take the lead when the pain hit.","경기 중 통증이 왔을 때 나는 선두를 잡으려던 참이었다.","① about  ② going  ③ trying  ④ ready","① about"],
+[313,"The test results from the hospital were not ( __ ) at all.","병원에서 나온 검사 결과는 전혀 희망적이지 않았다.","① painful  ② hopeful  ③ ordinary  ④ sudden","② hopeful"],
+[314,"I tried to ( __ ) out sports from my life, but the flashbacks kept coming.","나는 스포츠를 내 삶에서 차단하려 했지만 회상은 계속 찾아왔다.","① run  ② shut  ③ come  ④ get","② shut"],
+[315,"The sports medicine major ( __ ) with injuries, treatment, and prevention.","스포츠 의학 전공은 부상, 치료, 예방을 다룬다.","① results  ② applies  ③ deals  ④ relates","③ deals"],
+[316,"I ( __ ) up my mind to face my fears and applied to sports medicine.","나는 두려움에 맞서기로 결심하고 스포츠 의학에 지원했다.","① gave  ② made  ③ signed  ④ opened","② made"],
+[317,"Today I study to become a professional ( __ ) on the sidelines of the field.","오늘날 나는 경기장 측선에서 전문가가 되기 위해 공부한다.","① athlete  ② clerk  ③ star  ④ coach","③ star"],
+[318,"I have long ( __ ) great public speakers and hoped to be like them.","나는 훌륭한 공개 연사들을 오랫동안 존경해왔고 그들처럼 되고 싶었다.","① inspired  ② admired  ③ moved  ④ engaged","② admired"],
+[319,"My fear of making a fool of myself kept me ( __ ) the stage.","내가 웃음거리가 되는 것에 대한 두려움이 나를 무대 뒤에 머물게 했다.","① in front of  ② on top of  ③ behind  ④ instead of","③ behind"],
+[320,"I didn't enter the ( __ ) speech contest for three consecutive years.","나는 3년 연속으로 연례 연설 대회에 참가하지 않았다.","① entire  ② annual  ③ valuable  ④ public","② annual"],
+[321,"When I finally ( __ ) my speech, the applause gave me confidence.","내가 마침내 연설을 했을 때 박수가 나에게 자신감을 주었다.","① inspired  ② moved  ③ delivered  ④ engaged","③ delivered"],
+[322,"The first line of a novel must catch the reader's ( __ ) immediately.","소설의 첫 문장은 즉시 독자의 관심을 끌어야 한다.","① impression  ② attention  ③ exception  ④ expression","② attention"],
+[323,"Authors ( __ ) up with their opening lines after enormous effort.","작가들은 엄청난 노력 끝에 첫 문장을 생각해낸다.","① catch  ② come  ③ make  ④ open","② come"],
+[324,"The opening of Peter Pan ( __ ) that one child never grows up.","피터팬의 오프닝은 한 아이가 절대 자라지 않는다고 진술한다.","① refuses  ② states  ③ bears  ④ remains","② states"],
+[325,"In Neverland, excitement never ends and dreams are always being ( __ ).","네버랜드에서는 신남이 결코 끝나지 않고 꿈이 항상 태어나고 있다.","① refused  ② remained  ③ born  ④ located","③ born"],
+[326,"Children do not age ( __ ) they stay in Neverland.","아이들은 네버랜드에 머무는 한 나이를 먹지 않는다.","① whether  ② despite  ③ as long as  ④ in the end","③ as long as"],
+[327,"Despite the fun of Neverland, the children decided to grow ( __ ) and go home.","네버랜드의 즐거움에도 불구하고 아이들은 성장하여 집으로 돌아가기로 결심했다.","① away  ② over  ③ on  ④ up","④ up"],
+[328,"The word 'camp' usually brings fun images to ( __ ).","'캠프'라는 단어는 보통 재미있는 이미지를 마음에 떠오르게 한다.","① hint  ② state  ③ mind  ④ place","③ mind"],
+[329,"A green forest ( __ ) the beautiful blue lake in the readers' imagination.","독자의 상상 속에서 초록 숲이 아름다운 파란 호수를 둘러싸고 있다.","① suspects  ② improves  ③ locates  ④ surrounds","④ surrounds"],
+[330,"( __ ) its friendly name, Camp Green Lake is a grim and harsh place.","친근한 이름에도 불구하고 Camp Green Lake는 음침하고 가혹한 곳이다.","① Whether  ② Despite  ③ Though  ④ As long as","② Despite"],
+[331,"Sachar ( __ ) readers that the camp is nothing like what they imagined.","Sachar는 독자들에게 그 캠프는 그들이 상상한 것과 전혀 다르다고 암시한다.","① states  ② improves  ③ hints  ④ suspects","③ hints"],
+[332,"Camp Green Lake is ( __ ) in the desert and has no actual lake at all.","Camp Green Lake는 사막에 위치해 있으며 실제 호수가 전혀 없다.","① improved  ② located  ③ suspected  ④ surrounded","② located"],
+[333,"The boys must dig holes to ( __ ) their character, according to the camp rules.","소년들은 캠프 규칙에 따르면 품성을 개선하기 위해 구덩이를 파야 한다.","① suspect  ② locate  ③ improve  ④ dig","③ improve"],
+[334,"Stanley ( __ ) that the warden has hidden motives for making them dig.","Stanley는 관리자가 소년들에게 땅을 파도록 하는 숨겨진 동기가 있다고 의심한다.","① improves  ② suspects  ③ locates  ④ digs","② suspects"],
+[335,"In Oceania, clocks ( __ ) thirteen times, creating a sense of wrongness.","오세아니아에서는 시계가 13번 쳐서 뭔가 잘못되었다는 느낌을 만든다.","① improve  ② remain  ③ strike  ④ state","③ strike"],
+[336,"A clock striking thirteen is out of the ( __ ) in any normal world.","13번 치는 시계는 정상적인 세계에서는 색다른 것이다.","① irony  ② ordinary  ③ notion  ④ exception","② ordinary"],
+[337,"Thirteen is often ( __ ) with misfortune in many Western cultures.","13은 많은 서양 문화에서 종종 불운과 연관된다.","① located  ② suspected  ③ associated  ④ surrounded","③ associated"],
+[338,"Orwell's opening line hints that readers are about to enter a ( __ ) world.","오웰의 첫 문장은 독자들이 낯선 세계로 들어가려 한다는 것을 암시한다.","① ordinary  ② familiar  ③ unfamiliar  ④ imaginary","③ unfamiliar"],
+[339,"The story ( __ ) place in an imaginary totalitarian state called Oceania.","그 이야기는 오세아니아라는 가상의 전체주의 국가에서 일어난다.","① comes  ② gives  ③ makes  ④ takes","④ takes"],
+[340,"The government created a new language to ( __ ) how citizens think and speak.","정부는 시민들이 생각하고 말하는 방식을 제한하기 위해 새로운 언어를 만들었다.","① expand  ② control  ③ limit  ④ enhance","③ limit"],
+[341,"As long as Big Brother ( __ ) power, freedom is impossible in Oceania.","Big Brother가 권력을 가지고 있는 한, 오세아니아에서 자유는 불가능하다.","① gives  ② takes  ③ holds  ④ makes","③ holds"],
+[342,"Winston hopes others will help him rather than ( __ ) to Big Brother's control.","Winston은 다른 사람들이 Big Brother의 통제에 굴복하기보다 그를 도와주기를 바란다.","① taking place  ② coming to mind  ③ giving in  ④ running away","③ giving in"],
+[343,"Radio helped ( __ ) the era of sports patronage before television existed.","텔레비전이 생기기 전에 라디오는 스포츠 후원의 시대를 확고히 하는 데 도움을 주었다.","① enhance  ② solidify  ③ expand  ④ engage","② solidify"],
+[344,"Bill Stern's broadcast was a ( __ ) moment that shaped sports marketing forever.","Bill Stern의 방송은 스포츠 마케팅을 영원히 형성한 중요한 순간이었다.","① formidable  ② profitable  ③ significant  ④ unique","③ significant"],
+[345,"The television provided an ( __ ) that radio could never offer — visual storytelling.","텔레비전은 라디오가 제공할 수 없는 것 — 시각적 스토리텔링 — 이라는 기회를 제공했다.","① means  ② presence  ③ opportunity  ④ union","③ opportunity"],
+[346,"CPR knowledge from school proved ( __ ) in the real emergency at the store.","학교에서 배운 CPR 지식이 편의점에서의 실제 응급 상황에서 유용하다는 것이 증명되었다.","① ordinary  ② valuable  ③ annual  ④ painful","② valuable"],
+[347,"The paramedics ( __ ) over from me and managed the situation professionally.","구급대원들이 나로부터 상황을 넘겨받아 전문적으로 처리했다.","① rushed  ② regained  ③ took  ④ performed","③ took"],
+[348,"My brave ( __ ) to apply to sports medicine changed my entire life.","스포츠 의학에 지원하기로 한 나의 용감한 결정이 내 삶 전체를 바꾸었다.","① effort  ② patience  ③ decision  ④ courage","③ decision"],
+[349,"The speech contest was my final opportunity before ( __ ) from high school.","연설 대회는 고등학교를 졸업하기 전 나의 마지막 기회였다.","① applying  ② delivering  ③ signing  ④ graduating","④ graduating"],
+[350,"Sachar uses ( __ ) in the title 'Camp Green Lake' to set up his story.","Sachar는 이야기를 설정하기 위해 'Camp Green Lake'라는 제목에서 역설을 사용한다.","① hint  ② irony  ③ notion  ④ presence","② irony"],
+[351,"An author's opening line must make a powerful first ( __ ) on the reader.","작가의 첫 문장은 독자에게 강력한 첫인상을 주어야 한다.","① attention  ② expression  ③ exception  ④ impression","④ impression"],
+[352,"Neverland is a ( __ ) place where the laws of time do not apply.","네버랜드는 시간의 법칙이 적용되지 않는 마법의 장소이다.","① mysterious  ② imaginary  ③ magical  ④ unusual","③ magical"],
+[353,"In Oceania, the government ( __ ) every conversation through hidden screens.","오세아니아에서 정부는 숨겨진 화면을 통해 모든 대화를 감시한다.","① monitors  ② limits  ③ controls  ④ suspects","③ controls"],
+[354,"The boys were ( __ ) to dig holes as part of their supposed character training.","소년들은 그들의 소위 품성 훈련의 일환으로 구덩이를 파도록 기대되었다.","① expected  ② decided  ③ forced  ④ refused","① expected"],
+[355,"I had to ( __ ) CPR on the clerk — something I had only learned in class.","나는 직원에게 CPR을 수행해야 했다 — 수업에서만 배웠던 것이었다.","① rush  ② explain  ③ perform  ④ regain","③ perform"],
+[356,"My Olympic ( __ ) was shattered the moment I fell on the track.","나의 올림픽 꿈은 내가 트랙에서 쓰러지는 순간 산산이 부서졌다.","① injury  ② career  ③ dream  ④ result","③ dream"],
+[357,"The full picture of your career won't ( __ ) overnight — be patient.","당신의 진로의 전체 그림은 하룻밤 사이에 드러나지 않을 것이다 — 인내해야 한다.","① belong  ② treat  ③ emerge  ④ keep","③ emerge"],
+[358,"Marketers found television an incredible ( __ ) for reaching mass audiences.","마케터들은 텔레비전이 대중 청중에게 다가가기 위한 믿을 수 없을 만큼 강력한 수단임을 발견했다.","① notion  ② means  ③ union  ④ presence","② means"],
+[359,"Sports medicine ( __ ) injuries, treatments, and ways to prevent them.","스포츠 의학은 부상, 치료, 그리고 그것들을 예방하는 방법들을 다룬다.","① relates  ② deals with  ③ results in  ④ applies to","② deals with"],
+[360,"My act of ( __ ) at the speech contest changed how I see myself forever.","연설 대회에서 나의 용기 있는 행동이 내가 스스로를 보는 방식을 영원히 바꾸었다.","① patience  ② effort  ③ courage  ④ decision","③ courage"],
+[361,"The television, though ( __ ) a minor baseball game, became a cultural force.","텔레비전은 작은 야구 경기를 방송하고 있었음에도 불구하고 문화적 힘이 되었다.","① battling  ② airing  ③ engaging  ④ expanding","② airing"],
+[362,"Stanley was ( __ ) in the wrong place at the wrong time — he is innocent.","Stanley는 잘못된 때에 잘못된 장소에 있었다 — 그는 무고하다.","① just  ② only  ③ still  ④ even","① just"],
+[363,"Peter Pan ( __ ) to age, symbolizing the eternal desire for childhood.","피터팬은 나이를 먹기를 거부하여 어린 시절에 대한 영원한 열망을 상징한다.","① remains  ② states  ③ refuses  ④ bears","③ refuses"],
+[364,"The first line of a great book can draw you in from the very first ( __ ).","훌륭한 책의 첫 문장은 아주 처음 단어부터 당신을 끌어들일 수 있다.","① author  ② attention  ③ word  ④ impression","③ word"],
+[365,"I was about to ( __ ) a fool of myself on stage but found my courage in time.","나는 무대에서 웃음거리가 되려던 참이었지만 제때 용기를 찾았다.","① deliver  ② make  ③ give  ④ keep","② make"],
+[366,"The clerk ( __ ) consciousness thanks to the CPR performed by the young student.","점원은 젊은 학생이 수행한 CPR 덕분에 의식을 되찾았다.","① lost  ② regained  ③ performed  ④ rushed","② regained"],
+[367,"The television provided a ( __ ) and profitable union between sports and the public.","텔레비전은 스포츠와 대중 사이에 강력하고 수익성 있는 연대를 제공했다.","① gradual  ② immediate  ③ formidable  ④ ordinary","③ formidable"],
+[368,"I decided to ( __ ) up for the speech contest despite my fear.","나는 두려움에도 불구하고 연설 대회에 신청하기로 결심했다.","① make  ② sign  ③ give  ④ come","② sign"],
+[369,"My injury ( __ ) me from competing at the national level ever again.","내 부상은 나를 다시는 전국 수준에서 경쟁할 수 없게 막았다.","① related  ② resulted  ③ prevented  ④ flashbacked","③ prevented"],
+[370,"The ( __ ) of television and sports created a culture that still dominates today.","텔레비전과 스포츠의 연대는 오늘날도 여전히 지배하는 문화를 만들었다.","① means  ② presence  ③ union  ④ notion","③ union"],
+[371,"There is no single ( __ ) of bravery — it means something different to everyone.","용기에 대한 단 하나의 정의는 없다 — 그것은 모든 사람에게 다른 의미를 가진다.","① expression  ② exception  ③ definition  ④ impression","③ definition"],
+[372,"The first line of a book can ( __ ) readers in a way that no other line can.","책의 첫 문장은 다른 어떤 문장도 할 수 없는 방식으로 독자들을 사로잡을 수 있다.","① catch  ② open  ③ come  ④ make","① catch"],
+[373,"Camp Green Lake is ( __ ) in the middle of a scorching desert.","Camp Green Lake는 뜨거운 사막 한가운데에 위치해 있다.","① suspected  ② improved  ③ located  ④ surrounded","③ located"],
+[374,"In Oceania, no citizen can ( __ ) from Big Brother's constant surveillance.","오세아니아에서는 어떤 시민도 Big Brother의 끊임없는 감시에서 도망칠 수 없다.","① give in  ② take place  ③ run away  ④ come to mind","③ run away"],
+[375,"Radio ( __ ) the driving force for sports but television took it much further.","라디오는 스포츠의 원동력을 제공했지만 텔레비전이 그것을 훨씬 더 발전시켰다.","① enhanced  ② solidified  ③ provided  ④ expanded","③ provided"],
+[376,"I was ( __ ) when the operator asked me to perform CPR, but I did it.","교환원이 나에게 CPR을 수행하라고 했을 때 나는 겁먹었지만, 나는 해냈다.","① suddenly  ② gradually  ③ scared  ④ immediately","③ scared"],
+[377,"Two years after the injury, I was still trying to ( __ ) to life without sports.","부상 2년 후에도, 나는 여전히 스포츠 없는 삶에 적응하려 노력하고 있었다.","① come across  ② get used  ③ shut out  ④ run away","② get used"],
+[378,"I heard a voice growing ( __ ) in my head — it was telling me to try.","나는 내 머릿속에서 점점 커지는 목소리를 들었다 — 그것은 나에게 도전하라고 말하고 있었다.","① stronger  ② louder  ③ clearer  ④ higher","② louder"],
+[379,"My ( __ ) lesson from the speech contest was that courage opens doors.","연설 대회에서 얻은 나의 귀중한 교훈은 용기가 문을 열어준다는 것이었다.","① annual  ② entire  ③ valuable  ④ public","③ valuable"],
+[380,"The television's ( __ ) in sports presented every action as if you were there.","스포츠에서 텔레비전의 개입은 마치 현장에 있는 것처럼 모든 동작을 보여주었다.","① presence  ② intervention  ③ notion  ④ union","② intervention"],
+[381,"Radio's role was to ( __ ) a loyal audience for sports long before television.","텔레비전이 생기기 훨씬 전에 라디오의 역할은 스포츠를 위한 충성스러운 청중을 확고히 하는 것이었다.","① engage  ② expand  ③ solidify  ④ enhance","③ solidify"],
+[382,"The opening of 1984 places readers in a world where thirteen is not ( __ ).","1984의 오프닝은 독자들을 13이 색다른 것이 아닌 세계에 놓는다.","① mysterious  ② unusual  ③ imaginary  ④ unfamiliar","② unusual"],
+[383,"Orwell's government ( __ ) a new tongue to erase dangerous words and thoughts.","오웰의 정부는 위험한 단어와 생각을 지우기 위해 새로운 언어를 만들었다.","① limited  ② controlled  ③ created  ④ located","③ created"],
+[384,"The Neverland story ends with the children choosing to grow ( __ ) after all.","네버랜드 이야기는 결국 아이들이 성장하기로 선택하는 것으로 끝난다.","① away  ② on  ③ up  ④ over","③ up"],
+[385,"Some puzzle pieces will ( __ ) naturally, while others will need repositioning.","일부 퍼즐 조각은 자연스럽게 맞겠지만, 다른 것들은 위치를 재조정해야 할 것이다.","① emerge  ② fit  ③ belong  ④ keep","② fit"],
+[386,"The paramedics ( __ ) in just in time to save the clerk's life.","구급대원들이 딱 맞게 돌진해 들어와 직원의 생명을 구했다.","① regained  ② carried  ③ rushed  ④ performed","③ rushed"],
+[387,"My Olympic dreams were ( __ ) ended when my knee gave out mid-race.","내 올림픽 꿈은 경기 중 무릎이 나가면서 갑작스럽게 끝났다.","① gradually  ② suddenly  ③ clearly  ④ instantly","② suddenly"],
+[388,"The speech coach encouraged every student to ( __ ) up for the competition.","연설 코치는 모든 학생에게 대회에 신청하도록 격려했다.","① make  ② sign  ③ come  ④ give","② sign"],
+[389,"Stanley's ( __ ) of the warden's true intentions grows as the story develops.","이야기가 전개되면서 관리자의 진짜 의도에 대한 Stanley의 의심이 커진다.","① notion  ② suspicion  ③ irony  ④ character","② suspicion"],
+[390,"The ( __ ) pulse I found on his neck meant he was still alive.","내가 그의 목에서 발견한 약한 맥박은 그가 아직 살아있다는 것을 의미했다.","① faint  ② conscious  ③ sudden  ④ ordinary","① faint"],
+[391,"Peter Pan's adventure with Wendy, John, and Michael is a story of ( __ ) imagination.","Wendy, John, Michael과 피터팬의 모험은 마법의 상상에 관한 이야기이다.","① magical  ② unusual  ③ mysterious  ④ imaginary","① magical"],
+[392,"Camp Green Lake forces boys to ( __ ) by making them work in harsh conditions.","Camp Green Lake는 소년들을 가혹한 조건에서 일하게 함으로써 그들이 개선되도록 강요한다.","① suspect  ② locate  ③ improve  ④ dig","③ improve"],
+[393,"The government's surveillance in 1984 is total — nothing is ( __ ) from Big Brother.","1984의 정부 감시는 완전하다 — 아무것도 Big Brother로부터 숨겨지지 않는다.","① given in  ② taken place  ③ hidden  ④ come to mind","③ hidden"],
+[394,"My injury ( __ ) me from competing ever again at the national level.","내 부상은 나를 다시는 전국 수준에서 경쟁할 수 없게 막았다.","① related  ② resulted  ③ prevented  ④ flashbacked","③ prevented"],
+[395,"The ( __ ) of television and sports created a culture that still dominates today.","텔레비전과 스포츠의 연대는 오늘날도 여전히 지배하는 문화를 만들었다.","① means  ② presence  ③ union  ④ notion","③ union"],
+[396,"I signed ( __ ) for the contest even though every part of me said no.","내 모든 부분이 싫다고 했음에도 불구하고 나는 대회에 신청했다.","① in  ② out  ③ up  ④ on","③ up"],
+[397,"The opening line of a great book can draw you in from the very first ( __ ).","훌륭한 책의 첫 문장은 아주 처음 단어부터 당신을 끌어들일 수 있다.","① author  ② attention  ③ word  ④ impression","③ word"],
+[398,"I was about to ( __ ) a fool of myself on stage but found my courage in time.","나는 무대에서 웃음거리가 되려던 참이었지만 제때 용기를 찾았다.","① deliver  ② make  ③ give  ④ keep","② make"],
+[399,"The boys were sent to Camp Green Lake to ( __ ) their character through hard work.","소년들은 힘든 노동을 통해 품성을 개선하기 위해 Camp Green Lake로 보내졌다.","① suspect  ② locate  ③ improve  ④ dig","③ improve"],
+[400,"Or will Winston ( __ ) and accept the government's total control over his life?","아니면 Winston은 굴복하고 정부의 삶에 대한 완전한 통제를 받아들일 것인가?","① take place  ② come to mind  ③ give in  ④ run away","③ give in"],
+];
+
+// ── PART6: 401~500 어법 변형 (한글 해석 추가됨) ────────────────────────────
+const P6 = [
+[401,"I have ( ________ ) great public speakers since I was a child.","나는 어린 시절부터 훌륭한 공개 연사들을 존경해왔다.","[보기] admire / inspire / engage / move","admired"],
+[402,"The clerk was still ( ________ ) when the paramedics arrived.","구급대원들이 도착했을 때 직원은 여전히 호흡하고 있었다.","[보기] breathe / rush / perform / regain","breathing"],
+[403,"I remember ( ________ ) CPR in a school health class years ago.","나는 몇 년 전 학교 보건 수업에서 CPR을 배웠던 것을 기억한다.","[보기] learn / perform / breathe / rush","learning"],
+[404,"I saw the clerk ( ________ ) motionless behind the counter.","나는 직원이 카운터 뒤에 움직임 없이 누워있는 것을 보았다.","[보기] lie / rush / check / breathe","lying"],
+[405,"The doctor said the injury would ( ________ ) me from running again.","의사는 부상이 나를 다시 달리는 것을 막을 것이라고 말했다.","[보기] prevent / relate / result / carry","prevent"],
+[406,"The paramedics came ( ________ ) in just in time.","구급대원들이 딱 맞게 돌진해 들어왔다.","[보기] rush / regain / carry / perform","rushing"],
+[407,"I ( ________ ) for the speech contest and stood in front of 500 students.","나는 연설 대회에 신청하고 500명의 학생들 앞에 섰다.","[보기] sign up / make up / come up / catch up","signed up"],
+[408,"Sports medicine ( ________ ) with the prevention and treatment of athletic injuries.","스포츠 의학은 운동 부상의 예방과 치료를 다룬다.","[보기] deal / result / relate / improve","deals"],
+[409,"I ( ________ ) across an exciting new university program by chance.","나는 우연히 흥미로운 새로운 대학 프로그램을 발견했다.","[보기] come / shut / run / get","came"],
+[410,"My act of bravery ( ________ ) me that I can do anything I set my mind to.","나의 용감한 행동은 마음먹으면 무엇이든 할 수 있다는 것을 나에게 가르쳐 주었다.","[보기] teach / learn / inspire / keep","taught"],
+[411,"Peter Pan is a boy who ( ________ ) to follow the rules of time.","피터팬은 시간의 규칙을 따르는 것을 거부하는 소년이다.","[보기] refuse / remain / state / bear","refuses"],
+[412,"Dreams are ( ________ ) and excitement never ends in Neverland.","네버랜드에서는 꿈이 태어나고 신남이 결코 끝나지 않는다.","[보기] bear / locate / refuse / state","born"],
+[413,"Authors spend years ( ________ ) up with opening lines that grab readers.","작가들은 독자들을 사로잡는 첫 문장을 생각해내는 데 몇 년을 보낸다.","[보기] come / catch / make / open","coming"],
+[414,"The children ( ________ ) in Neverland as long as they don't choose to grow up.","아이들은 성장하기로 선택하지 않는 한 네버랜드에 머문다.","[보기] remain / refuse / state / bear","remain"],
+[415,"Through this irony, the author is ( ________ ) that nothing is what it seems.","이 역설을 통해 작가는 아무것도 겉모습과 같지 않다는 것을 암시하고 있다.","[보기] hint / surround / locate / improve","hinting"],
+[416,"Stanley ( ________ ) that there are buried secrets in Camp Green Lake.","Stanley는 Camp Green Lake에 숨겨진 비밀이 있다고 의심한다.","[보기] suspect / improve / locate / dig","suspects"],
+[417,"Typically, clocks ( ________ ) no more than twelve times in the real world.","현실 세계에서 시계는 일반적으로 열두 번을 넘지 않게 친다.","[보기] strike / improve / state / remain","strike"],
+[418,"The number thirteen is often ( ________ ) with bad luck and dark omens.","숫자 13은 종종 불운과 불길한 징조와 연관된다.","[보기] associate / locate / surround / improve","associated"],
+[419,"The government has ( ________ ) a new language to control how people think.","정부는 사람들이 생각하는 방식을 통제하기 위해 새로운 언어를 만들었다.","[보기] create / limit / control / locate","created"],
+[420,"As long as Big Brother is in power, people will never be ( ________ ).","Big Brother가 권력을 가지고 있는 한, 사람들은 결코 자유롭지 않을 것이다.","[보기] free / limited / controlled / located","free"],
+[421,"Radio ( ________ ) the driving force to confirm sports as popular entertainment.","라디오는 스포츠를 대중 오락으로 확인하는 원동력을 제공했다.","[보기] provide / solidify / expand / engage","provided"],
+[422,"The invention that soon followed ( ________ ) the most important media ever.","그 뒤를 이은 발명품은 역사상 가장 중요한 매체로 남아있다.","[보기] remain / follow / influence / aid","remains"],
+[423,"Television ( ________ ) and aided the development of sports marketing enormously.","텔레비전은 스포츠 마케팅의 발전에 영향을 주고 지원하는 데 엄청나게 도움을 주었다.","[보기] influence / aid / remain / follow","influenced"],
+[424,"The television, though ( ________ ) a minor baseball game, became a cultural force.","텔레비전은 작은 야구 경기를 방송하고 있었음에도 불구하고 문화적 힘이 되었다.","[보기] air / battle / engage / expand","airing"],
+[425,"Sports organizations used TV to ( ________ ) their market presence globally.","스포츠 단체들은 전 세계적으로 시장 진출을 확장하기 위해 TV를 활용했다.","[보기] expand / engage / enhance / solidify","expand"],
+[426,"The clerk was ( ________ ) on the floor when I looked over the counter.","내가 카운터 너머를 보았을 때 직원이 바닥에 누워있었다.","[보기] lie / perform / rush / breathe","lying"],
+[427,"I ( ________ ) called 911 — I didn't even hesitate.","나는 즉시 911에 전화했다 — 나는 망설이지도 않았다.","[보기] immediate / sudden / fortunate / gradual","immediately"],
+[428,"I felt ( ________ ) but I still pushed down on his chest.","나는 겁먹었지만 그의 가슴을 눌렀다.","[보기] scare / breathe / perform / rush","scared"],
+[429,"It felt wonderful to help ( ________ ) someone's life that night.","그날 밤 누군가의 생명을 구하는 것을 돕는 것이 정말 기쁘게 느껴졌다.","[보기] save / rush / perform / breathe","save"],
+[430,"I was about to ( ________ ) the lead when pain shot through my knee.","통증이 무릎을 관통할 때 나는 선두를 잡으려던 참이었다.","[보기] take / carry / award / compete","take"],
+[431,"I fell and had to be ( ________ ) off the track on a stretcher.","나는 쓰러져서 들것에 실려 트랙에서 옮겨져야 했다.","[보기] carry / rush / award / prevent","carried"],
+[432,"My injury was so ( ________ ) that I couldn't even watch games on TV.","내 부상은 너무 고통스러워서 TV에서 경기조차 볼 수 없었다.","[보기] pain / flash / ordinary / sudden","painful"],
+[433,"I ( ________ ) across sports medicine while searching for a new direction.","나는 새로운 방향을 찾다가 스포츠 의학을 우연히 발견했다.","[보기] come / shut / run / get","came"],
+[434,"Sports medicine ( ________ ) with the full range of athletic healthcare.","스포츠 의학은 운동 의료의 전체 범위를 다룬다.","[보기] deal / result / relate / help","deals"],
+[435,"I realized I had been ( ________ ) away from my problems for too long.","나는 너무 오랫동안 내 문제들로부터 도망치고 있었다는 것을 깨달았다.","[보기] run / shut / get / come","running"],
+[436,"I ( ________ ) up my mind after reading about sports medicine online.","나는 스포츠 의학에 대해 온라인에서 읽은 후 결심했다.","[보기] make / apply / decide / sign","made"],
+[437,"Today I am ( ________ ) to become a sports medicine professional.","오늘날 나는 스포츠 의학 전문가가 되기 위해 공부하고 있다.","[보기] study / apply / deal / prevent","studying"],
+[438,"Since childhood, I have ( ________ ) every great orator I ever saw.","어린 시절부터 나는 내가 본 모든 훌륭한 연설가를 존경해왔다.","[보기] admire / inspire / move / engage","admired"],
+[439,"I hoped one day to ( ________ ) audiences the way my favorite speakers did.","나는 언젠가 내가 좋아하는 연설가들처럼 청중에게 감동을 주고 싶었다.","[보기] move / inspire / admire / deliver","move"],
+[440,"For years, fear kept me ( ________ ) the stage instead of on it.","수년간, 두려움이 나를 무대 위가 아닌 무대 뒤에 머물게 했다.","[보기] behind / instead of / rather than / as long as","behind"],
+[441,"I desperately lacked the ( ________ ) needed to stand before an audience.","나는 청중 앞에 서기 위해 필요한 용기가 절박하게 부족했다.","[보기] courage / patience / decision / effort","courage"],
+[442,"Before ( ________ ) from high school, I had one final chance to speak.","고등학교를 졸업하기 전에 나는 마지막으로 한 번 말할 기회가 있었다.","[보기] graduate / sign / deliver / grow","graduating"],
+[443,"I finally ( ________ ) my speech and discovered I could handle the pressure.","나는 마침내 연설을 했고 압박감을 견딜 수 있다는 것을 발견했다.","[보기] deliver / inspire / move / admire","delivered"],
+[444,"Courage ( ________ ) me something I never forgot: I can do anything.","용기는 내가 결코 잊지 못한 것을 나에게 가르쳐 주었다: 나는 무엇이든 할 수 있다.","[보기] teach / learn / inspire / make","taught"],
+[445,"A powerful opening line can catch readers' attention and make them want to read ( ________ ).","강력한 첫 문장은 독자들의 관심을 끌고 계속 읽고 싶게 만들 수 있다.","[보기] on / up / out / away","on"],
+[446,"Authors spend years ( ________ ) up with that perfect first sentence.","작가들은 그 완벽한 첫 문장을 생각해내는 데 몇 년을 보낸다.","[보기] come / catch / make / open","coming"],
+[447,"Peter Pan ( ________ ) to grow older and loves the freedom of eternal youth.","피터팬은 나이를 먹기를 거부하고 영원한 청춘의 자유를 사랑한다.","[보기] refuse / remain / state / bear","refuses"],
+[448,"The children do not age as long as they ( ________ ) in Neverland.","아이들은 네버랜드에 머무는 한 나이를 먹지 않는다.","[보기] remain / refuse / state / bear","remain"],
+[449,"In the end the children decide to grow ( ________ ) and leave Neverland.","결국 아이들은 성장하여 네버랜드를 떠나기로 결심한다.","[보기] up / away / on / over","up"],
+[450,"A green forest ( ________ ) a sparkling blue lake in readers' imaginations.","독자들의 상상 속에서 초록 숲이 반짝이는 파란 호수를 둘러싸고 있다.","[보기] surround / locate / improve / suspect","surrounds"],
+[451,"There is no lake there ( ________ ) the camp's seemingly pleasant name.","그 캠프의 겉으로는 유쾌해 보이는 이름에도 불구하고 거기에는 호수가 없다.","[보기] despite / whether / as long as / though","despite"],
+[452,"Sachar is ( ________ ) that the camp is not what its name suggests.","Sachar는 그 캠프가 이름이 시사하는 것과 다르다는 것을 암시하고 있다.","[보기] hint / surround / locate / improve","hinting"],
+[453,"Stanley never stops ( ________ ) the warden's real reasons for the digging.","Stanley는 파기의 진짜 이유에 대한 관리자의 의심을 멈추지 않는다.","[보기] suspect / improve / locate / dig","suspecting"],
+[454,"In a normal world a clock ( ________ ) thirteen would be alarming.","정상적인 세계에서 13번 치는 시계는 불안하게 느껴질 것이다.","[보기] strike / improve / state / remain","striking"],
+[455,"Thirteen is often ( ________ ) with misfortune across many Western traditions.","13은 많은 서양 전통에서 종종 불운과 연관된다.","[보기] associate / locate / surround / improve","associated"],
+[456,"The story ( ________ ) place in an imaginary dystopian nation.","그 이야기는 가상의 디스토피아 국가에서 발생한다.","[보기] take / come / give / make","takes"],
+[457,"The government created a new language to ( ________ ) people's ability to rebel.","정부는 사람들의 반란 능력을 제한하기 위해 새로운 언어를 만들었다.","[보기] limit / control / influence / expand","limit"],
+[458,"As long as Big Brother ( ________ ) in power, freedom is impossible.","Big Brother가 권력을 유지하는 한, 자유는 불가능하다.","[보기] remain / give / take / hold","remains"],
+[459,"Will Winston resist, or will he ( ________ ) in and accept the government's control?","Winston은 저항할 것인가, 아니면 굴복하고 정부의 통제를 받아들일 것인가?","[보기] give / take / come / make","give"],
+[460,"Evolution is characterized by stability that ( ________ ) by sudden changes.","진화는 갑작스러운 변화로 중단되는 안정성이 특징이다.","[보기] punctuate / overestimate / privilege / catch up on","is punctuated"],
+[461,"We tend to ( ________ ) our chances of winning unlikely events like lotteries.","우리는 복권과 같은 가능성이 낮은 사건에서 이길 확률을 과대평가하는 경향이 있다.","[보기] overestimate / punctuate / privilege / catch up on","overestimate"],
+[462,"Many nations have moved beyond subsistence to ( ________ ) abundance.","많은 국가들이 최저 생계를 넘어 전례 없는 풍요로 옮겨 갔다.","[보기] unprecedented / irrational / insofar as / admiration","unprecedented"],
+[463,"You just need to keep ( ________ ) it until the full picture emerges clearly.","전체 그림이 명확하게 드러날 때까지 계속 노력해야 한다.","[보기] at / in / on / up","at"],
+[464,"You just have to ( ________ ) your new career like doing a jigsaw puzzle.","당신은 새로운 진로를 퍼즐 맞추기처럼 다루어야 한다.","[보기] treat / achieve / belong / emerge","treat"],
+[465,"The full picture will ( ________ ) gradually if you stay persistent.","당신이 끈기 있게 노력한다면 전체 그림이 점진적으로 드러날 것이다.","[보기] emerge / achieve / belong / treat","emerge"],
+[466,"I ( ________ ) checked 911 and explained the emergency to the dispatcher.","나는 즉시 911에 전화하여 긴급 상황을 교환원에게 설명했다.","[보기] immediate / sudden / fortunate / gradual","immediately"],
+[467,"The operator asked me to ( ________ ) CPR until professional help arrived.","교환원은 전문적인 도움이 도착할 때까지 CPR을 수행해달라고 요청했다.","[보기] perform / rush / regain / take over","perform"],
+[468,"Fortunately the clerk was still ( ________ ) when I checked his pulse.","내가 그의 맥박을 확인했을 때 다행히도 직원은 여전히 호흡하고 있었다.","[보기] breathe / rush / regain / perform","breathing"],
+[469,"The paramedics arrived and ( ________ ) over the scene from me.","구급대원들이 도착하여 나로부터 상황을 넘겨받았다.","[보기] take / rush / regain / carry","took"],
+[470,"Luckily the clerk ( ________ ) consciousness before being taken to hospital.","다행히도 직원은 병원으로 이송되기 전에 의식을 되찾았다.","[보기] regain / rush / carry / perform","regained"],
+[471,"I dreamed of ( ________ ) a world-class track and field competitor.","나는 세계적인 육상 선수가 되는 것을 꿈꿨다.","[보기] be / compete / carry / dream","being"],
+[472,"My room was crammed with medals from every race I had ( ________ ) in.","내 방은 내가 참가한 모든 경기에서 받은 메달들로 꽉 차 있었다.","[보기] compete / carry / award / race","competed"],
+[473,"I suddenly ( ________ ) a sharp pain in my knee mid-race.","나는 경기 중 갑자기 무릎에 날카로운 통증을 느꼈다.","[보기] feel / take / carry / prevent","felt"],
+[474,"I had to be ( ________ ) off the track and taken straight to hospital.","나는 트랙에서 옮겨져 바로 병원으로 이송되어야 했다.","[보기] carry / rush / award / prevent","carried"],
+[475,"The doctors said the knee ( ________ ) would stop me from running again.","의사들은 무릎 부상이 나를 다시 달리는 것을 막을 것이라고 말했다.","[보기] injure / injuring / injury / injured","injury"],
+[476,"I ( ________ ) everything sports-related out of my daily life.","나는 스포츠와 관련된 모든 것을 내 일상에서 차단했다.","[보기] shut / run / get / come","shut"],
+[477,"Two years ( ________ ) and I was still struggling to adapt to life without sport.","2년이 지났고 나는 여전히 스포츠 없는 삶에 적응하려 애쓰고 있었다.","[보기] pass / passing / passed / passes","passed"],
+[478,"One day I ( ________ ) an interesting major called sports medicine.","어느 날 나는 스포츠 의학이라는 흥미로운 전공을 우연히 발견했다.","[보기] come / came / coming / comes","came"],
+[479,"Sports medicine ( ________ ) athletic injuries, recovery, and prevention.","스포츠 의학은 운동 부상, 회복, 예방을 다룬다.","[보기] deal / dealt / dealing / deals","deals"],
+[480,"I ( ________ ) up my mind and immediately applied to the program.","나는 결심하고 즉시 그 프로그램에 지원했다.","[보기] make / made / making / makes","made"],
+[481,"Today I am proudly ( ________ ) to become a sports medicine professional.","오늘날 나는 자랑스럽게 스포츠 의학 전문가가 되기 위해 공부하고 있다.","[보기] study / studied / studying / studies","studying"],
+[482,"Since childhood I have ( ________ ) brilliant public speakers.","어린 시절부터 나는 뛰어난 공개 연사들을 존경해왔다.","[보기] admire / admired / admiring / admires","admired"],
+[483,"I ( ________ ) my speech to the whole school last spring.","나는 지난 봄 전교생에게 연설을 했다.","[보기] deliver / delivered / delivering / delivers","delivered"],
+[484,"My act of courage ( ________ ) me the most valuable lesson of my life.","나의 용기 있는 행동은 내 인생에서 가장 귀중한 교훈을 가르쳐 주었다.","[보기] teach / taught / teaching / teaches","taught"],
+[485,"Authors often ( ________ ) up with great opening lines after years of effort.","작가들은 종종 수년간의 노력 끝에 훌륭한 첫 문장을 생각해낸다.","[보기] come / came / coming / comes","come"],
+[486,"Every child eventually ( ________ ) an adult, whether they like it or not.","모든 아이는 원하든 원하지 않든 결국 어른이 된다.","[보기] become / became / becoming / becomes","becomes"],
+[487,"Peter Pan ( ________ ) to grow up even as all the other children mature.","피터팬은 다른 모든 아이들이 성숙해가는 동안에도 성장하기를 거부한다.","[보기] refuse / refused / refusing / refuses","refuses"],
+[488,"The green forest ( ________ ) the blue lake in readers' first imagination.","독자들의 첫 번째 상상 속에서 초록 숲이 파란 호수를 둘러싸고 있다.","[보기] surround / surrounded / surrounding / surrounds","surrounds"],
+[489,"Through this irony, the author ( ________ ) that things are not what they seem.","이 역설을 통해 작가는 사물이 겉모습과 같지 않다는 것을 암시한다.","[보기] hint / hinted / hinting / hints","hints"],
+[490,"The boys are ( ________ ) to dig holes to improve their character.","소년들은 품성을 개선하기 위해 구덩이를 파도록 기대된다.","[보기] expect / expected / expecting / expects","expected"],
+[491,"A clock ( ________ ) thirteen times is out of the ordinary in the real world.","현실 세계에서 13번 치는 시계는 색다른 것이다.","[보기] strike / struck / striking / strikes","striking"],
+[492,"The number thirteen is often ( ________ ) with bad luck and misfortune.","숫자 13은 종종 불운과 불행과 연관된다.","[보기] associate / associated / associating / associates","associated"],
+[493,"The story ( ________ ) place in an imaginary country called Oceania.","그 이야기는 오세아니아라는 가상의 나라에서 발생한다.","[보기] take / took / taking / takes","takes"],
+[494,"The government ( ________ ) a new language to restrict thought and expression.","정부는 사상과 표현을 제한하기 위해 새로운 언어를 만들었다.","[보기] create / created / creating / creates","created"],
+[495,"As long as Big Brother ( ________ ) in power, liberty is unthinkable.","Big Brother가 권력을 유지하는 한, 자유는 상상할 수 없다.","[보기] remain / remained / remaining / remains","remains"],
+[496,"Or will he ( ________ ) in and accept the oppressive government's control?","아니면 그는 굴복하고 억압적인 정부의 통제를 받아들일 것인가?","[보기] give / gave / giving / gives","give"],
+[497,"Radio ( ________ ) the driving force that launched the patronage era of sports.","라디오는 스포츠의 후원 시대를 시작한 원동력을 제공했다.","[보기] provide / provided / providing / provides","provided"],
+[498,"The invention that followed ( ________ ) the greatest communication medium ever.","그 뒤를 이은 발명품은 역사상 가장 위대한 통신 매체로 남아있다.","[보기] remain / remained / remaining / remains","remains"],
+[499,"The television ( ________ ) and aided the development of modern sports culture.","텔레비전은 현대 스포츠 문화의 발전에 영향을 주고 지원했다.","[보기] influence / influenced / influencing / influences","influenced"],
+[500,"The notion of a picture ( ________ ) worth a thousand words came alive on TV.","'그림이 천 마디 말의 가치가 있다'는 개념이 TV에서 현실이 되었다.","[보기] be / was / being / been","being"],
+];
+
+// ═══════════════════════════════════════════════════════════════
+// 퀴즈 엔진
+// ═══════════════════════════════════════════════════════════════
+let userName='', userClass='';
+let allQ=[], queue=[], qIdx=0, cor=0, wrng=0, answered=false;
+let wrongLog=[];
+const SECTIONS=[
+  {id:'s1',label:'1~100',start:0,end:99},
+  {id:'s2',label:'101~200',start:100,end:199},
+  {id:'s3',label:'201~250',start:200,end:249},
+  {id:'s4',label:'251~300',start:250,end:299},
+  {id:'s5',label:'301~400',start:300,end:399},
+  {id:'s6',label:'401~500',start:400,end:499},
+];
+let curSection=null;
+
+function buildAllQ(){
+  allQ=[];
+  // P1: 선택형
+  P1.forEach(d=>allQ.push({no:d[0],type:'sel',eng:d[1],kor:d[2],opts:d[3],ans:d[4]}));
+  // P2: 타이핑 (한글해석 있음)
+  P2.forEach(d=>allQ.push({no:d[0],type:'type',eng:d[1],kor:d[2],hint:d[3],ans:d[4]}));
+  // P3: 매칭(뜻쓰기)
+  P3_MATCH.forEach(d=>allQ.push({no:d[0],type:'match',word:d[1],ans:d[2]}));
+  // P4: 배열 - 빈칸보기 + 단어배열
+  P4.forEach(d=>allQ.push({no:d[0],type:'arr',eng:d[1],kor:d[2],choiceHint:d[3],words:d[4],blankAns:d[5],arrAns:d[6]}));
+  // P5: 선택형
+  P5.forEach(d=>allQ.push({no:d[0],type:'sel',eng:d[1],kor:d[2],opts:d[3],ans:d[4]}));
+  // P6: 타이핑 (한글해석 있음)
+  P6.forEach(d=>allQ.push({no:d[0],type:'type',eng:d[1],kor:d[2],hint:d[3],ans:d[4]}));
+}
+
+function startQuiz(){
+  userName=document.getElementById('nameInput').value.trim()||'익명';
+  userClass=document.getElementById('classInput').value.trim()||'—';
+  if(!userName){alert('이름을 입력해주세요!');return;}
+  buildAllQ();
+  document.getElementById('cover').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  document.getElementById('hdr-name').textContent=userName+' 님';
+  buildTabs();
+  loadSection(null);
+}
+
+function buildTabs(){
+  const wrap=document.getElementById('stabs');
+  wrap.innerHTML='<button class="stab on" onclick="loadSection(null)">전체</button>';
+  SECTIONS.forEach(s=>{
+    wrap.innerHTML+=`<button class="stab" id="${s.id}" onclick="loadSection('${s.id}')">${s.label}</button>`;
+  });
+}
+
+function loadSection(sid){
+  curSection=sid;
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
+  if(!sid){document.querySelector('.stab').classList.add('on');queue=[...allQ];}
+  else{
+    document.getElementById(sid).classList.add('on');
+    const s=SECTIONS.find(x=>x.id===sid);
+    queue=allQ.slice(s.start,s.end+1);
+  }
+  qIdx=0; cor=0; wrng=0; answered=false;
+  upStats(); showQ();
+}
+
+function upStats(){
+  const tot=queue.length, done=cor+wrng;
+  document.getElementById('pb').style.width=tot?(done/tot*100)+'%':'0%';
+  document.getElementById('pt').textContent=done+' / '+tot;
+  document.getElementById('sc').textContent=cor;
+  document.getElementById('sw').textContent=wrng;
+  document.getElementById('sl').textContent=tot-done;
+  document.getElementById('sr').textContent=done?Math.round(cor/done*100)+'%':'—';
+}
+
+function esc(s){
+  if(!s)return'';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function showQ(){
+  if(qIdx>=queue.length){showDone();return;}
+  answered=false;
+  const q=queue[qIdx];
+  const qa=document.getElementById('qa');
+  const TYPES={'sel':'어휘 선택','type':'어법 변형','match':'어휘 매칭','arr':'문장 배열'};
+  const BCLS={'sel':'b1','type':'b2','match':'b3','arr':'b4'};
+
+  let html=`<div class="qcard">
+    <div class="qnum-row"><span class="qnum">${q.no}번</span><span class="badge ${BCLS[q.type]}">${TYPES[q.type]}</span></div>`;
+
+  if(q.type==='sel'){
+    html+=`<div class="qeng">${esc(q.eng)}</div><div class="qkor">${esc(q.kor)}</div>
+    <div class="answer-area"><div class="opts">`;
+    const opts=q.opts.split('  ');
+    opts.forEach((o,i)=>{
+      html+=`<button class="obtn" onclick="chkSel(this)" data-val="${esc(o.trim())}" data-ans="${esc(q.ans)}">
+        <span class="olbl">${['①','②','③','④'][i]||''}</span><span>${esc(o.trim())}</span></button>`;
+    });
+    html+=`</div></div>`;
+  } else if(q.type==='type'){
+    html+=`<div class="qeng">${esc(q.eng)}</div><div class="qkor">${esc(q.kor)}</div>
+    <div class="qhint">${esc(q.hint)}</div>
+    <div class="answer-area">
+      <div class="trow">
+        <input class="ti" id="ti" placeholder="답을 입력하세요..." onkeydown="if(event.key==='Enter')chkType()" autocomplete="off" autocorrect="off" spellcheck="false">
+        <button class="ck-btn" onclick="chkType()">확인</button>
+      </div>
+      <div class="fb" id="fb"></div>
+    </div>`;
+  } else if(q.type==='match'){
+    html+=`<div class="qeng" style="font-size:14px;margin-bottom:10px">다음 단어/숙어의 우리말 뜻을 쓰시오.</div>
+    <div style="font-size:20px;font-weight:600;color:#1a1a18;margin-bottom:14px">${esc(q.word)}</div>
+    <div class="answer-area">
+      <div class="trow">
+        <input class="ti" id="ti" placeholder="우리말 뜻을 입력하세요..." onkeydown="if(event.key==='Enter')chkType()" autocomplete="off" autocorrect="off" spellcheck="false">
+        <button class="ck-btn" onclick="chkType()">확인</button>
+      </div>
+      <div class="fb" id="fb"></div>
+    </div>`;
+  } else if(q.type==='arr'){
+    // 배열 문제: 빈칸선택 + 단어배열 (빈칸 단어는 [] 에서 제거됨)
+    const words=q.words==='—'?[]:(q.words||'').split(' / ').map(w=>w.trim()).filter(w=>w);
+    const choiceOpts=(q.choiceHint||'').replace('[빈칸 보기] ','').split(' / ');
+    html+=`<div class="qeng">${esc(q.eng)}</div><div class="qkor">${esc(q.kor)}</div>
+    <div class="answer-area">
+      <div class="arr-box">
+        <div class="arr-fill-row">
+          <span class="arr-fill-label">① 빈칸 ( __ )에 들어갈 말:</span>
+          <select class="arr-select" id="arr-sel">
+            <option value="">-- 선택 --</option>
+            ${choiceOpts.map(o=>`<option value="${esc(o.trim())}">${esc(o.trim())}</option>`).join('')}
+          </select>
+        </div>`;
+    if(words.length>0){
+      html+=`<div class="arr-words"><b>② [ ] 안의 단어들을 바르게 배열하세요:</b><br>
+        ${words.map(w=>`<span>${esc(w)}</span>`).join('')}
+      </div>
+      <div class="arr-hint">단어들을 올바른 순서로 입력하세요. 빈칸 단어는 ①에서 선택한 단어입니다.</div>
+      <input class="arr-input" id="arr-in" placeholder="단어를 순서대로 입력하세요 (예: you know everything about)" onkeydown="if(event.key==='Enter')chkArr()">`;
+    }
+    html+=`</div>
+      <div class="fb" id="fb"></div>
+      <button class="ck-btn" style="margin-top:8px" onclick="chkArr()">확인</button>
+    </div>`;
+  }
+  html+=`<button class="nxt" id="nb" onclick="nextQ()">다음 문제 →</button></div>`;
+  qa.innerHTML=html;
+  if(q.type==='type'||q.type==='match'){
+    setTimeout(()=>{const el=document.getElementById('ti');if(el)el.focus();},40);
+  }
+}
+
+function chkSel(btn){
+  if(answered)return; answered=true;
+  const a=btn.dataset.ans;
+  document.querySelectorAll('.obtn').forEach(b=>{
+    b.disabled=true;
+    if(b.dataset.val===a)b.classList.add('ok');
+  });
+  if(btn.dataset.val===a){cor++;}
+  else{btn.classList.add('bad');wrng++;recWrong();}
+  document.getElementById('nb').style.display='block';
+  upStats();
+}
+
+function nm(s){return String(s).toLowerCase().replace(/[~\s,.()\[\]（）\-\/]/g,'');}
+
+function chkType(){
+  if(answered)return; answered=true;
+  const ti=document.getElementById('ti');
+  const fb=document.getElementById('fb');
+  const raw=ti.value.trim();
+  const q=queue[qIdx];
+  const a=q.ans;
+  ti.disabled=true;
+  if(nm(raw)===nm(a)){
+    ti.className='ti ok'; fb.textContent='정답입니다!'; fb.className='fb ok'; cor++;
+  } else {
+    ti.className='ti bad'; fb.textContent='오답  —  정답: '+a; fb.className='fb bad'; wrng++; recWrong();
+  }
+  document.getElementById('nb').style.display='block';
+  upStats();
+}
+
+function chkArr(){
+  if(answered)return; answered=true;
+  const q=queue[qIdx];
+  const fb=document.getElementById('fb');
+  const selEl=document.getElementById('arr-sel');
+  const inEl=document.getElementById('arr-in');
+  const selVal=(selEl?selEl.value:'').trim();
+  const inVal=(inEl?inEl.value:'').trim();
+  let ok=true;
+  // 빈칸 정답 체크
+  if(nm(selVal)!==nm(q.blankAns)){ok=false;}
+  // 배열 정답 체크 (단어가 있을 때만)
+  const words=q.words==='—'?[]:(q.words||'').split(' / ').filter(w=>w.trim());
+  if(words.length>0 && nm(inVal)!==nm(q.arrAns)){ok=false;}
+  if(selEl)selEl.disabled=true;
+  if(inEl)inEl.disabled=true;
+  if(ok){
+    if(selEl)selEl.style.background='#eaf5ed';
+    if(inEl)inEl.className='arr-input ok';
+    fb.textContent='정답입니다!'; fb.className='fb ok'; cor++;
+  } else {
+    if(selEl)selEl.style.background='#fdf0eb';
+    if(inEl)inEl.className='arr-input bad';
+    fb.innerHTML=`오답  —  빈칸 정답: <b>${esc(q.blankAns)}</b>${words.length>0?`  /  배열 정답: <b>${esc(q.arrAns)}</b>`:''}`;
+    fb.className='fb bad'; wrng++; recWrong();
+  }
+  document.getElementById('nb').style.display='block';
+  upStats();
+}
+
+function recWrong(){
+  const q=queue[qIdx];
+  const label=q.type==='match'?q.word:(q.type==='arr'?`${q.no}번 배열`:q.eng.substring(0,40));
+  if(!wrongLog.find(w=>w.no===q.no))
+    wrongLog.push({no:q.no,label,ans:q.ans||q.blankAns||''});
+}
+
+function nextQ(){qIdx++;showQ();}
+
+// ── 완료 ────────────────────────────────────────────────────
+function showDone(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('done').style.display='block';
+  const tot=queue.length,pct=tot?Math.round(cor/tot*100):0;
+  document.getElementById('de').textContent=pct>=90?'🎉':pct>=70?'😊':pct>=50?'😅':'😓';
+  document.getElementById('dt').textContent=userName+'님의 퀴즈 결과';
+  document.getElementById('ds').textContent=`${userClass} · ${curSection?SECTIONS.find(s=>s.id===curSection).label+' 범위':'전체 범위'}`;
+  document.getElementById('d-tot').textContent=tot;
+  document.getElementById('d-cor').textContent=cor;
+  document.getElementById('d-wrng').textContent=wrng;
+  document.getElementById('d-pct').textContent=pct+'%';
+  // 틀린 목록
+  const wl=document.getElementById('wl');
+  if(wrongLog.length){
+    wl.innerHTML=`<div class="wlt">틀린 문제 (${wrongLog.length}개)</div>`+
+      wrongLog.slice(0,50).map(w=>`<div class="wi"><span class="we">${esc(w.no+'번')}: ${esc(w.label.substring(0,30))}</span><span class="wa">정답: ${esc(w.ans)}</span></div>`).join('');
+  } else {
+    wl.innerHTML='<div style="text-align:center;font-size:13px;color:#bbb;padding:12px">틀린 문제가 없어요! 완벽합니다 👍</div>';
+  }
+}
+
+function makeResultText(){
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('ko-KR')+'  '+now.toLocaleTimeString('ko-KR');
+  const tot=queue.length,pct=tot?Math.round(cor/tot*100):0;
+  let txt=`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+  txt+=`공통영어1 어휘 연습문제 결과\n`;
+  txt+=`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+  txt+=`이름: ${userName}\n학반번호: ${userClass}\n날짜: ${dateStr}\n`;
+  txt+=`범위: ${curSection?SECTIONS.find(s=>s.id===curSection).label:'전체'}\n`;
+  txt+=`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+  txt+=`총 문제: ${tot}  |  정답: ${cor}  |  오답: ${wrng}  |  정답률: ${pct}%\n`;
+  txt+=`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+  if(wrongLog.length){
+    txt+=`\n틀린 문제 목록 (${wrongLog.length}개):\n`;
+    wrongLog.forEach(w=>{ txt+=`  ${w.no}번: ${w.label.substring(0,40)} → 정답: ${w.ans}\n`; });
+  } else { txt+='\n틀린 문제 없음 — 완벽한 점수!\n'; }
+  txt+=`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+  return txt;
+}
+
+function downloadResult(){
+  const txt=makeResultText();
+  const blob=new Blob(['\uFEFF'+txt],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`공통영어1_결과_${userName}_${new Date().toLocaleDateString('ko-KR').replace(/\./g,'').replace(/ /g,'')}.txt`;
+  a.click();
+}
+
+function sendEmail(){
+  const to=document.getElementById('emailTo').value.trim()||'window7458@gmail.com';
+  const txt=makeResultText();
+  const tot=queue.length,pct=tot?Math.round(cor/tot*100):0;
+  const subject=encodeURIComponent(`[공통영어1 퀴즈 결과] ${userName} / ${userClass} / ${pct}%`);
+  const body=encodeURIComponent(txt);
+  const mailto=`mailto:${to}?subject=${subject}&body=${body}`;
+  document.getElementById('send-status').innerHTML=
+    `<span style="color:#1a8c5e;font-weight:500">✓ 메일 앱을 열고 있습니다...</span><br>
+    메일 앱이 열리지 않으면 아래 버튼으로 결과를 다운로드하여 직접 첨부해주세요.<br>
+    수신 주소: <b>${to}</b>`;
+  window.location.href=mailto;
+}
+
+function restartAll(){
+  document.getElementById('done').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  wrongLog=[];
+  loadSection(curSection);
+}
+
+function retryWrong(){
+  if(!wrongLog.length){restartAll();return;}
+  const wrongNos=new Set(wrongLog.map(w=>w.no));
+  document.getElementById('done').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  const prevWrong=[...wrongLog];
+  wrongLog=[];
+  queue=allQ.filter(q=>wrongNos.has(q.no));
+  qIdx=0; cor=0; wrng=0; answered=false;
+  upStats(); showQ();
+}
+</script>
+</body>
+</html>
